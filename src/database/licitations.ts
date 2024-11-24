@@ -14,7 +14,7 @@ export async function getLastLicitations() {
 export async function getLicitation(id: string) {
 	try {
 		return (await LicitationModel.findById(id))?.toObject() || null
-	} catch (error) {
+	} catch {
 		return null
 	}
 }
