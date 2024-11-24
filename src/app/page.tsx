@@ -5,7 +5,7 @@ export default async function LicitacionesPage() {
 	const licitations = await getLastLicitations()
 
 	return (
-		<div className="container mx-auto px-4 py-8">
+		<div className="py-8">
 			<h1 className="text-2xl font-bold mb-6">Últimas publicaciones</h1>
 			<div className="flex flex-col w-full gap-4">
 				{licitations.map((licitation) => (
