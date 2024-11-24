@@ -16,8 +16,11 @@ const geistMono = localFont({
 })
 
 export const metadata: Metadata = {
-	title: "Contratos Públicos",
-	description: "Consulta el estado de los contratos públicos en España.",
+	title: "Portal de Licitaciones y Contratos Públicos",
+	description:
+		"Consulta, busca y gestiona licitaciones y contratos públicos en España. Descubre oportunidades del sector público en tiempo real con nuestra plataforma.",
+	keywords:
+		"licitaciones, licitaciones del estado, contratación pública, contratos sector público, buscador de licitaciones, concesión de servicios, contratos de obras, licitaciones abiertas",
 }
 
 export default function RootLayout({
@@ -28,7 +31,7 @@ export default function RootLayout({
 	return (
 		<html lang="es">
 			<head>
-				<link rel="icon" href="/favicon.svg" sizes="any" />
+				<link rel="icon" href="/favicon.svg" sizes="any" />s
 			</head>
 			<body
 				className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen bg-slate-200 text-gray-800 flex flex-col`}

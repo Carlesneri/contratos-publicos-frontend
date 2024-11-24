@@ -1,12 +1,14 @@
 import { getLastLicitations } from "@/database/licitations"
 import { LicitationCard } from "@/components/LicitationCard"
+import { HomeContent } from "@/components/HomeContent"
 
 export default async function LicitacionesPage() {
 	const licitations = await getLastLicitations()
 
 	return (
 		<div className="py-8">
-			<h1 className="text-2xl font-bold mb-6">Últimas publicaciones</h1>
+			<HomeContent />
+			<h3 className="text-2xl font-bold my-6">Últimas publicaciones</h3>
 			<div className="flex flex-col w-full gap-4">
 				{licitations.map((licitation) => (
 					<LicitationCard
