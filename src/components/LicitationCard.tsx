@@ -1,9 +1,10 @@
 import { Licitation } from "@/types"
 import { IconCalendar, IconMapPin, IconCurrencyEuro } from "@tabler/icons-react"
+import Link from "next/link"
 
 export function LicitationCard({ licitation }: { licitation: Licitation }) {
 	return (
-		<a
+		<Link
 			href={`/licitaciones/${licitation.id}`}
 			className=" bg-gray-800 shadow-sm hover:rounded-sm p-4 hover:shadow-2xl shadow-black transition-colors duration-300"
 		>
@@ -74,6 +75,6 @@ export function LicitationCard({ licitation }: { licitation: Licitation }) {
 					</p>
 				)}
 			</article>
-		</a>
+		</Link>
 	)
 }
