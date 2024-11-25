@@ -8,8 +8,8 @@ export default async function LicitacionesPage() {
 	const licitations = await getLastLicitations()
 
 	return (
-		<>
-			<h3 className="text-2xl font-bold my-6">Últimas publicaciones</h3>
+		<div className="flex flex-col gap-4">
+			<h3 className="text-2xl font-bold">Últimas publicaciones</h3>
 			<div className="flex flex-col w-full gap-4">
 				{licitations.map((licitation) => (
 					<LicitationCard
@@ -19,6 +19,6 @@ export default async function LicitacionesPage() {
 				))}
 			</div>
 			<HomeContent />
-		</>
+		</div>
 	)
 }
