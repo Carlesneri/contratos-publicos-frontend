@@ -37,8 +37,13 @@ export default async function Licitacion({
 					/>
 					<InfoItem
 						icon={<IconCalendar className="w-5 h-5" />}
-						label="Fecha fin de presentación"
+						label="Fecha fin de presentación de oferta"
 						value={licitation["Fecha fin de presentación de oferta"]}
+					/>
+					<InfoItem
+						icon={<IconCalendar className="w-5 h-5" />}
+						label="Fecha fin de presentación de solicitud"
+						value={licitation["Fecha fin de presentación de solicitud"]}
 					/>
 					<InfoItem
 						icon={<IconMapPin className="w-5 h-5" />}

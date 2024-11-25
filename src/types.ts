@@ -24,4 +24,5 @@ export interface Licitation {
 	"Fecha de Actualización del Expte"?: string
 	"Estado de la Licitación"?: string
 	"Código CPV"?: string
+	"Fecha fin de presentación de solicitud"?: string
 }
