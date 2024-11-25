@@ -2,6 +2,8 @@ import { getLastLicitations } from "@/database/licitations"
 import { LicitationCard } from "@/components/LicitationCard"
 import { HomeContent } from "@/components/HomeContent"
 
+export const dynamic = "force-dynamic"
+
 export default async function LicitacionesPage() {
 	const licitations = await getLastLicitations()
 
