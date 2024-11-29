@@ -24,7 +24,7 @@ export default async function Licitacion({
 
 	return (
 		<div className="p-6 bg-white shadow-lg rounded my-8">
-			<h1 className="text-2xl font-bold mb-6 text-gray-800">
+			<h1 className="text-2xl font-bold mb-6 text-gray-800 text-balance">
 				{licitation["Objeto del contrato"] || "Sin título"}
 			</h1>
 

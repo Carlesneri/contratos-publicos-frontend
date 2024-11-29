@@ -1,3 +1,5 @@
+import Link from "next/link"
+
 export default function Footer() {
 	return (
 		<footer className="bg-gray-950 text-gray-300 py-8">
@@ -14,24 +16,21 @@ export default function Footer() {
 						<h3 className="text-lg font-semibold mb-2">Enlaces Rápidos</h3>
 						<ul className="text-sm">
 							<li className="mb-1">
-								<a href="#" className="hover:text-white">
+								<a href="/" className="hover:text-white">
 									Inicio
 								</a>
 							</li>
 							<li className="mb-1">
-								<a href="#" className="hover:text-white">
-									Licitaciones Abiertas
-								</a>
+								<Link href="/licitaciones" className="hover:text-white">
+									Últimas actualizaciones
+								</Link>
 							</li>
 						</ul>
 					</div>
 					<div className="w-full md:w-1/3">
 						<h3 className="text-lg font-semibold mb-2">Contáctanos</h3>
 						<p className="text-sm mb-1">
-							<a
-								href="mailto:contratospublicos@gmail.es"
-								className="hover:text-white"
-							>
+							<a href="mailto:carlesneri@gmail.es" className="hover:text-white">
 								Contacto
 							</a>
 						</p>
