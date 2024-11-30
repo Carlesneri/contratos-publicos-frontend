@@ -25,6 +25,15 @@ export function Header() {
 									Home
 								</Link>
 							</li>
+							<li>
+								<Link
+									href="/licitaciones"
+									className="block py-2 px-3 text-gray-800 rounded bg-transparent p-0"
+									aria-current="page"
+								>
+									Buscar
+								</Link>
+							</li>
 						</ul>
 					</div>
 				</div>

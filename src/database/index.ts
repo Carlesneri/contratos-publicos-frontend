@@ -7,6 +7,12 @@ export async function connectDB() {
 		throw new Error("Env MONGODB_URI not found")
 	}
 
+	if (mongoose.connection.readyState >= 1) {
+		console.log("DB already connected")
+
+		return
+	}
+
 	return await mongoose
 		.connect(MONGODB_URI, { autoIndex: true })
 		.then(() => {

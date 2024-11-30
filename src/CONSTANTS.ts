@@ -23,6 +23,6 @@ export const VALID_LICITATION_FIELDS = [
 	"Adjudicatario",
 	"Nº de Licitadores Presentados",
 	"Importe de Adjudicación",
-]
+] as const
 
 export const DEFAULT_LIMIT = 10

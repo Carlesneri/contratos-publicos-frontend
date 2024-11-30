@@ -4,10 +4,27 @@ import { connectDB } from "."
 await connectDB()
 
 export async function getLastLicitations(
-	{ limit, skip }: { limit: number; skip: number } = { limit: 10, skip: 0 }
+	{
+		limit,
+		skip,
+		searchParams,
+	}: { limit: number; skip: number; searchParams: Record<string, string> } = {
+		limit: 10,
+		skip: 0,
+		searchParams: {},
+	}
 ) {
+	const searchParamsQuery: Record<string, { $in: string[] }> = {}
+
+	Object.entries(searchParams).forEach(([key, value]) => {
+		searchParamsQuery[key] = { $in: value.split(",") }
+	})
+
 	return (
-		await LicitationModel.find({ "Estado de la Licitación": "Publicada" })
+		await LicitationModel.find({
+			"Estado de la Licitación": "Publicada",
+			...searchParamsQuery,
+		})
 			.sort({ updatedAt: -1 })
 			.limit(limit)
 			.skip(skip)
