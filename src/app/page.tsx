@@ -21,11 +21,11 @@ export default async function LicitacionesPage() {
 					</Link>
 				</span>
 			</div>
-			<div className="flex flex-col w-full gap-4">
-				{licitations.map((licitation) => (
+			<div className="flex flex-col w-full gap-4 items-center">
+				{licitations.result.map((licitation) => (
 					<LicitationCard key={licitation.id} licitation={licitation} />
 				))}
-				<Link href="/licitaciones" className="btn btn-outline">
+				<Link href="/licitaciones" className="btn btn-outline w-fit">
 					{"Ver más >>"}
 				</Link>
 			</div>

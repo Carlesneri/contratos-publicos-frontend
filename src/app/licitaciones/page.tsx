@@ -32,7 +32,8 @@ export default async function BuscarLicitaciones({
 
 	return (
 		<LicitationsSearch
-			initialLicitations={licitations}
+			initialLicitations={licitations.result}
+			isNextPage={licitations.isNextPage}
 			fields={fields}
 			page={Number(page) ? Number(page) : 1}
 		/>

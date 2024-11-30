@@ -1,7 +1,11 @@
 "use client"
 
 import { ChangeEvent, useEffect, useState } from "react"
-import { IconSearch, IconFilter } from "@tabler/icons-react"
+import {
+	IconSearch,
+	IconFilter,
+	IconCaretDownFilled,
+} from "@tabler/icons-react"
 import { Licitation } from "@/types"
 import { LicitationCard } from "./LicitationCard"
 import { useSearchParams } from "next/navigation"
@@ -13,10 +17,12 @@ export function LicitationsSearch({
 	initialLicitations,
 	page,
 	fields,
+	isNextPage,
 }: {
 	initialLicitations: Licitation[]
 	page: number
 	fields: Fields
+	isNextPage: boolean
 }) {
 	const [licitations, setlicitations] = useState(initialLicitations)
 	const [searchTerm, setSearchTerm] = useState("")
@@ -101,11 +107,12 @@ export function LicitationsSearch({
 				<h1 className="text-3xl font-bold mb-6">Últimas actualizaciones</h1>
 
 				<form onSubmit={() => {}} className="space-y-6">
-					<div className="bg-gray-50 p-4 rounded">
-						<div className="flex items-center mb-4 gap-4">
-							<div className="flex gap-2 items-center">
-								<IconFilter className="" />
+					<details className="bg-gray-50 p-4" open>
+						<summary className="flex items-center mb-4 gap-4">
+							<div className="cursor-pointer flex gap-2 items-center">
+								<IconCaretDownFilled size={32} />
 								<h2 className="text-lg font-semibold">Filtros</h2>
+								<IconFilter />
 							</div>
 							<Link
 								href={`/licitaciones/?${searchTerm}`}
@@ -115,9 +122,9 @@ export function LicitationsSearch({
 								<IconSearch className="w-5" />
 								Buscar
 							</Link>
-						</div>
+						</summary>
 
-						<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+						<div className="flex flex-col gap-4">
 							{fields["Estado de la Licitación"] && (
 								<div className="flex flex-col gap-4">
 									<label className="font-bold text-gray-800">
@@ -226,7 +233,7 @@ export function LicitationsSearch({
 								</div>
 							)}
 						</div>
-					</div>
+					</details>
 				</form>
 			</div>
 
@@ -236,7 +243,7 @@ export function LicitationsSearch({
 				))}
 			</div>
 
-			<div className="join grid grid-cols-2">
+			<div className="join grid grid-cols-[1fr_auto_1fr] place-content-center">
 				<Link
 					href={getPrevPage()}
 					className={`join-item btn btn-outline ${
@@ -245,10 +252,11 @@ export function LicitationsSearch({
 				>
 					Anterior página
 				</Link>
+				<div className="self-center px-4 font-bold">{page || "1"}</div>
 				<Link
 					href={getNextPage()}
 					className={`join-item btn btn-outline ${
-						licitations.length === 0 ? "btn-disabled" : ""
+						isNextPage ? "" : "btn-disabled"
 					}`}
 				>
 					Siguiente página

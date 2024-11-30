@@ -20,15 +20,15 @@ export async function getLastLicitations(
 		searchParamsQuery[key] = { $in: value.split(",") }
 	})
 
-	return (
-		await LicitationModel.find({
-			"Estado de la Licitación": "Publicada",
-			...searchParamsQuery,
-		})
-			.sort({ updatedAt: -1 })
-			.limit(limit)
-			.skip(skip)
-	).map((doc) => {
+	const licitations = await LicitationModel.find({
+		"Estado de la Licitación": "Publicada",
+		...searchParamsQuery,
+	})
+		.sort({ updatedAt: -1 })
+		.limit(limit + 1)
+		.skip(skip)
+
+	const mappedLicitations = licitations.map((doc) => {
 		const { _id, ...restOfDoc } = doc.toObject()
 
 		const docObject = {
@@ -38,6 +38,11 @@ export async function getLastLicitations(
 
 		return docObject
 	})
+
+	return {
+		result: mappedLicitations.slice(0, limit),
+		isNextPage: mappedLicitations.length > limit,
+	}
 }
 
 export async function getLicitation(id: string) {
