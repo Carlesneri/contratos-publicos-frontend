@@ -1,5 +1,7 @@
 import { LicitationModel } from "@/schemas/licitacion.schema"
 import { connectDB } from "."
+import { FilterQuery } from "mongoose"
+import { RootQuerySelector } from "mongoose"
 
 await connectDB()
 
@@ -14,14 +16,30 @@ export async function getLastLicitations(
 		searchParams: {},
 	}
 ) {
-	const searchParamsQuery: Record<string, { $in: string[] }> = {}
+	const searchParamsQuery: RootQuerySelector<any> = {}
+
+	const searchAggregates: FilterQuery<any>[] | undefined = []
 
 	Object.entries(searchParams).forEach(([key, value]) => {
+		if (key === "Objeto del contrato") {
+			value
+				.split(",")
+				.map((v) => v.trim())
+				.filter(Boolean)
+				.forEach((v) => {
+					searchAggregates.push({
+						"Objeto del contrato": { $regex: new RegExp(v), $options: "i" },
+					})
+				})
+
+			return
+		}
+
 		searchParamsQuery[key] = { $in: value.split(",") }
 	})
 
 	const licitations = await LicitationModel.find({
-		"Estado de la Licitación": "Publicada",
+		$and: searchAggregates,
 		...searchParamsQuery,
 	})
 		.sort({ updatedAt: -1 })

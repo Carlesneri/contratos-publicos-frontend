@@ -6,7 +6,14 @@ import Link from "next/link"
 export const dynamic = "force-dynamic"
 
 export default async function LicitacionesPage() {
-	const licitations = await getLastLicitations()
+	const licitations = await getLastLicitations({
+		searchParams: { "Estado de la Licitación": "Publicada" },
+		limit: 6,
+		skip: 0,
+	})
+
+	const verMasSearchParams = new URLSearchParams()
+	verMasSearchParams.set("Estado de la Licitación", "Publicada")
 
 	return (
 		<div className="flex flex-col gap-4">
@@ -25,7 +32,10 @@ export default async function LicitacionesPage() {
 				{licitations.result.map((licitation) => (
 					<LicitationCard key={licitation.id} licitation={licitation} />
 				))}
-				<Link href="/licitaciones" className="btn btn-outline w-fit">
+				<Link
+					href={`/licitaciones?${verMasSearchParams.toString()}`}
+					className="btn btn-outline w-fit"
+				>
 					{"Ver más >>"}
 				</Link>
 			</div>

@@ -1,6 +1,6 @@
 "use client"
 
-import { ChangeEvent, useEffect, useState } from "react"
+import { ChangeEvent, FormEvent, useEffect, useState } from "react"
 import {
 	IconSearch,
 	IconFilter,
@@ -8,7 +8,7 @@ import {
 } from "@tabler/icons-react"
 import { Licitation } from "@/types"
 import { LicitationCard } from "./LicitationCard"
-import { useSearchParams } from "next/navigation"
+import { useSearchParams, useRouter } from "next/navigation"
 import Link from "next/link"
 import { VALID_LICITATION_FIELDS } from "@/CONSTANTS"
 import { Fields } from "@/database/fields"
@@ -27,20 +27,11 @@ export function LicitationsSearch({
 	const [licitations, setlicitations] = useState(initialLicitations)
 	const [searchTerm, setSearchTerm] = useState("")
 	const searchParams = useSearchParams()
+	const router = useRouter()
 
 	useEffect(() => {
-		const params = new URLSearchParams(searchParams)
-
-		setSearchTerm(params.toString())
+		setSearchTerm(searchParams.toString())
 	}, [searchParams])
-
-	useEffect(() => {
-		const params = new URLSearchParams(searchTerm)
-
-		params.set("page", "1")
-
-		setSearchTerm(params.toString())
-	}, [searchTerm])
 
 	useEffect(() => {
 		setlicitations(initialLicitations)
@@ -101,140 +92,181 @@ export function LicitationsSearch({
 		return fieldValuesSet.has(value)
 	}
 
+	function handleInput(
+		e: FormEvent<HTMLInputElement>,
+		{ field }: { field: (typeof VALID_LICITATION_FIELDS)[number] }
+	) {
+		const params = new URLSearchParams(searchTerm)
+
+		const value = (e.target as HTMLInputElement).value
+
+		value ? params.set(field, value) : params.delete(field)
+
+		setSearchTerm(params.toString())
+	}
+
+	// useEffect(() => {
+	// 	console.log({ searchTerm })
+	// }, [searchTerm])
+
 	return (
 		<div className="flex flex-col gap-4">
 			<div>
 				<h1 className="text-3xl font-bold mb-6">Últimas actualizaciones</h1>
 
-				<form onSubmit={() => {}} className="space-y-6">
-					<details className="bg-gray-50 p-4" open>
-						<summary className="flex items-center mb-4 gap-4">
-							<div className="cursor-pointer flex gap-2 items-center">
-								<IconCaretDownFilled size={32} />
-								<h2 className="text-lg font-semibold">Filtros</h2>
-								<IconFilter />
-							</div>
-							<Link
-								href={`/licitaciones/?${searchTerm}`}
-								type="submit"
-								className="btn btn-outline flex-1 text-base gap-2"
-							>
-								<IconSearch className="w-5" />
-								Buscar
-							</Link>
-						</summary>
+				<details className="bg-gray-50 p-4" open>
+					<summary className="flex items-center mb-4 gap-4">
+						<div className="cursor-pointer flex gap-2 items-center">
+							<IconCaretDownFilled size={32} />
+							<h2 className="text-lg font-semibold">Filtros</h2>
+							<IconFilter />
+						</div>
+						<button
+							className="btn btn-outline flex-1 text-base gap-2"
+							onClick={() => {
+								const searchParams = new URLSearchParams(searchTerm)
 
-						<div className="flex flex-col gap-4">
-							{fields["Estado de la Licitación"] && (
-								<div className="flex flex-col gap-4">
-									<label className="font-bold text-gray-800">
-										Estado de la Licitación
-									</label>
-									<ul className="flex gap-x-4 gap-y-2 flex-wrap">
-										{fields["Estado de la Licitación"].map((option, index) => {
-											return (
-												<div
-													className="flex gap-2 items-center"
-													key={option + index}
-												>
-													<label htmlFor={option}>{option}</label>
-													<input
-														type="checkbox"
-														className="checkbox checkbox-sm"
-														onChange={(e) =>
-															handleChangeCheckbox(e, {
-																field: "Estado de la Licitación",
-																value: option,
-															})
-														}
-														value={option}
-														id={option}
-														checked={isInSearchParam({
+								searchParams.delete("page")
+
+								router.push(`/licitaciones/?${searchParams.toString()}`)
+							}}
+						>
+							<IconSearch className="w-5" />
+							Buscar
+						</button>
+					</summary>
+
+					<div className="flex flex-col gap-4">
+						<label className="form-control w-full">
+							<div className="label">
+								<span className="label-text text-base font-bold">
+									Buscar por objeto del contrato
+								</span>
+							</div>
+							<input
+								type="text"
+								placeholder="conservación, carreteras, limpieza..."
+								className="input input-bordered w-full"
+								onChange={(e) =>
+									handleInput(e, { field: "Objeto del contrato" })
+								}
+							/>
+							<div className="label">
+								<span className="label-text text-gray-600">
+									Escribe los conceptos separados por comas
+								</span>
+							</div>
+						</label>
+
+						{fields["Estado de la Licitación"] && (
+							<div className="flex flex-col gap-4">
+								<label className="font-bold text-gray-800">
+									Estado de la Licitación
+								</label>
+								<ul className="flex gap-x-4 gap-y-2 flex-wrap">
+									{fields["Estado de la Licitación"].map((option, index) => {
+										return (
+											<div
+												className="flex gap-2 items-center"
+												key={option + index}
+											>
+												<label htmlFor={option}>{option}</label>
+												<input
+													type="checkbox"
+													className="checkbox checkbox-sm"
+													onChange={(e) =>
+														handleChangeCheckbox(e, {
 															field: "Estado de la Licitación",
 															value: option,
-														})}
-													/>
-												</div>
-											)
-										})}
-									</ul>
-								</div>
-							)}
+														})
+													}
+													value={option}
+													id={option}
+													checked={isInSearchParam({
+														field: "Estado de la Licitación",
+														value: option,
+													})}
+												/>
+											</div>
+										)
+									})}
+								</ul>
+							</div>
+						)}
 
-							{fields["Tipo de Contrato:"] && (
-								<div className="flex flex-col gap-4">
-									<label className="font-bold text-gray-800">
-										Tipo de Contrato
-									</label>
-									<ul className="flex gap-x-4 gap-y-2 flex-wrap">
-										{fields["Tipo de Contrato:"].map((option, index) => {
-											return (
-												<div
-													className="flex gap-2 items-center"
-													key={option + index}
-												>
-													<label htmlFor={option}>{option}</label>
-													<input
-														type="checkbox"
-														className="checkbox checkbox-sm"
-														onChange={(e) =>
-															handleChangeCheckbox(e, {
-																field: "Tipo de Contrato:",
-																value: option,
-															})
-														}
-														value={option}
-														id={option}
-														checked={isInSearchParam({
+						{fields["Tipo de Contrato:"] && (
+							<div className="flex flex-col gap-4">
+								<label className="font-bold text-gray-800">
+									Tipo de Contrato
+								</label>
+								<ul className="flex gap-x-4 gap-y-2 flex-wrap">
+									{fields["Tipo de Contrato:"].map((option, index) => {
+										return (
+											<div
+												className="flex gap-2 items-center"
+												key={option + index}
+											>
+												<label htmlFor={option}>{option}</label>
+												<input
+													type="checkbox"
+													className="checkbox checkbox-sm"
+													onChange={(e) =>
+														handleChangeCheckbox(e, {
 															field: "Tipo de Contrato:",
 															value: option,
-														})}
-													/>
-												</div>
-											)
-										})}
-									</ul>
-								</div>
-							)}
+														})
+													}
+													value={option}
+													id={option}
+													checked={isInSearchParam({
+														field: "Tipo de Contrato:",
+														value: option,
+													})}
+												/>
+											</div>
+										)
+									})}
+								</ul>
+							</div>
+						)}
 
-							{fields["Tipo de tramitación"] && (
-								<div className="flex flex-col gap-4">
-									<label className="font-bold text-gray-800">
-										Tipo de tramitación
-									</label>
-									<ul className="flex gap-x-4 gap-y-2 flex-wrap">
-										{fields["Tipo de tramitación"].map((option, index) => {
-											return (
-												<div
-													className="flex gap-2 items-center"
-													key={option + index}
-												>
-													<label htmlFor={option}>{option}</label>
-													<input
-														type="checkbox"
-														className="checkbox checkbox-sm"
-														onChange={(e) =>
-															handleChangeCheckbox(e, {
-																field: "Tipo de tramitación",
-																value: option,
-															})
-														}
-														value={option}
-														id={option}
-														defaultChecked={isInSearchParam({
+						{fields["Tipo de tramitación"] && (
+							<div className="flex flex-col gap-4">
+								<label className="font-bold text-gray-800">
+									Tipo de tramitación
+								</label>
+								<ul className="flex gap-x-4 gap-y-2 flex-wrap">
+									{fields["Tipo de tramitación"].map((option, index) => {
+										return (
+											<div
+												className="flex gap-2 items-center"
+												key={option + index}
+											>
+												<label htmlFor={option}>{option}</label>
+												<input
+													type="checkbox"
+													className="checkbox checkbox-sm"
+													onChange={(e) =>
+														handleChangeCheckbox(e, {
 															field: "Tipo de tramitación",
 															value: option,
-														})}
-													/>
-												</div>
-											)
-										})}
-									</ul>
-								</div>
-							)}
-						</div>
-					</details>
-				</form>
+														})
+													}
+													value={option}
+													id={option}
+													defaultChecked={isInSearchParam({
+														field: "Tipo de tramitación",
+														value: option,
+													})}
+												/>
+											</div>
+										)
+									})}
+								</ul>
+							</div>
+						)}
+					</div>
+				</details>
 			</div>
 
 			<div className="flex flex-col w-full gap-4">
