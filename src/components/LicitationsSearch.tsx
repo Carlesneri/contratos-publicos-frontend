@@ -141,8 +141,22 @@ export function LicitationsSearch({
 
 	return (
 		<div className="flex flex-col gap-4">
-			<div>
-				<h1 className="text-3xl font-bold mb-6">Últimas actualizaciones</h1>
+			<div className="flex flex-col gap-4">
+				<h1 className="text-3xl font-bold">Últimas actualizaciones</h1>
+
+				{searchParams.entries().map(([key, value]) => {
+					if (key === "page") return null
+
+					return (
+						<h3
+							key={key}
+							className="text-sm leading-none font-semibold italic text-gray-700"
+						>
+							{key.replace(/:$/, "")}:{" "}
+							<span className="">{value.split(",").join(", ")}</span>
+						</h3>
+					)
+				})}
 
 				<details className="bg-gray-50" open>
 					<summary className="flex cursor-pointer justify-between items-center gap-4 p-4">
@@ -156,13 +170,6 @@ export function LicitationsSearch({
 					<div className="flex flex-col gap-4 p-4">
 						<div className="flex gap-2">
 							<button
-								className="btn btn-info text-base gap-2 w-fit"
-								onClick={navigate}
-							>
-								<IconSearch className="w-5" />
-								Buscar
-							</button>
-							<button
 								className={`btn btn-link text-info text-base gap-2 w-fit ${
 									isFilterClean ? "pointer-events-none text-opacity-60" : ""
 								}`}
@@ -170,6 +177,13 @@ export function LicitationsSearch({
 							>
 								<IconFilterOff className={`w-5`} />
 								limpiar filtros
+							</button>
+							<button
+								className="btn btn-info text-base gap-2 w-fit"
+								onClick={navigate}
+							>
+								<IconSearch className="w-5" />
+								Buscar
 							</button>
 						</div>
 
