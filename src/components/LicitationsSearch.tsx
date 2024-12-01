@@ -144,7 +144,7 @@ export function LicitationsSearch({
 			<div className="flex flex-col gap-4">
 				<h1 className="text-3xl font-bold">Últimas actualizaciones</h1>
 
-				{searchParams.entries().map(([key, value]) => {
+				{[...searchParams.entries()].map(([key, value]) => {
 					if (key === "page") return null
 
 					return (

@@ -25,7 +25,7 @@ export function LicitationCard({ licitation }: { licitation: Licitation }) {
 				className="cursor-pointer w-full bg-gray-800 shadow-sm hover:rounded-sm p-4 hover:shadow-2xl shadow-black transition-colors duration-300"
 			>
 				<article className="flex flex-col gap-1 text-gray-100">
-					<header className="flex flex-col space-between gap-2 w-full sm:flex-row">
+					<header className="flex flex-col space-between gap-2 w-full sm:flex-row mb-2">
 						<h2 className="gap-2 text-xl line-clamp-2 font-semibold flex-1">
 							{licitation["Órgano de Contratación"] || "Licitación"}
 						</h2>
@@ -42,7 +42,7 @@ export function LicitationCard({ licitation }: { licitation: Licitation }) {
 							</span>
 						)}
 					</header>
-					<div className="flex gap-3 flex-wrap items-center text-gray-300">
+					<div className="flex gap-x-3 flex-wrap items-center text-gray-300">
 						{licitation["Tipo de Contrato:"] && (
 							<p className="text-sm " title="tipo de contrato">
 								{licitation["Tipo de Contrato:"]}
