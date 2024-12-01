@@ -6,7 +6,7 @@ export function LicitationCard({ licitation }: { licitation: Licitation }) {
 	return (
 		<Link
 			href={`/licitaciones/${licitation.id}`}
-			className="w-full bg-gray-800 shadow-sm hover:rounded-sm p-4 hover:shadow-2xl shadow-black transition-colors duration-300"
+			className="cursor-pointer w-full bg-gray-800 shadow-sm hover:rounded-sm p-4 hover:shadow-2xl shadow-black transition-colors duration-300"
 		>
 			<article className="flex flex-col gap-1 text-gray-100">
 				<header className="flex justify-between items-center gap-2">
@@ -70,7 +70,7 @@ export function LicitationCard({ licitation }: { licitation: Licitation }) {
 					</p>
 				)}
 				{licitation["Objeto del contrato"] && (
-					<p className="text-md text-pretty">
+					<p className="text-md text-pretty line-clamp-3">
 						{licitation["Objeto del contrato"]}
 					</p>
 				)}

@@ -5,6 +5,9 @@ import {
 	IconSearch,
 	IconFilter,
 	IconCaretDownFilled,
+	IconMapPin,
+	IconHammer,
+	IconBuildingEstate,
 } from "@tabler/icons-react"
 import { Licitation } from "@/types"
 import { LicitationCard } from "./LicitationCard"
@@ -36,6 +39,10 @@ export function LicitationsSearch({
 	useEffect(() => {
 		setlicitations(initialLicitations)
 	}, [initialLicitations])
+
+	useEffect(() => {
+		console.log({ searchTerm })
+	}, [searchTerm])
 
 	const getPrevPage = () => {
 		const prevPage = page ? page - 1 : 1
@@ -93,7 +100,7 @@ export function LicitationsSearch({
 	}
 
 	function handleInput(
-		e: FormEvent<HTMLInputElement>,
+		e: FormEvent<HTMLInputElement | HTMLDataListElement>,
 		{ field }: { field: (typeof VALID_LICITATION_FIELDS)[number] }
 	) {
 		const params = new URLSearchParams(searchTerm)
@@ -104,10 +111,6 @@ export function LicitationsSearch({
 
 		setSearchTerm(params.toString())
 	}
-
-	// useEffect(() => {
-	// 	console.log({ searchTerm })
-	// }, [searchTerm])
 
 	return (
 		<div className="flex flex-col gap-4">
@@ -122,7 +125,7 @@ export function LicitationsSearch({
 							<IconFilter />
 						</div>
 						<button
-							className="btn btn-outline flex-1 text-base gap-2"
+							className="btn btn-outline btn-primary flex-1 text-base gap-2"
 							onClick={() => {
 								const searchParams = new URLSearchParams(searchTerm)
 
@@ -139,23 +142,66 @@ export function LicitationsSearch({
 					<div className="flex flex-col gap-4">
 						<label className="form-control w-full">
 							<div className="label">
-								<span className="label-text text-base font-bold">
+								<span className="flex gap-2 label-text text-base font-bold text-gray-800">
+									<IconHammer />
 									Buscar por objeto del contrato
 								</span>
 							</div>
 							<input
 								type="text"
 								placeholder="conservación, carreteras, limpieza..."
-								className="input input-bordered w-full"
-								onChange={(e) =>
+								className="input input-bordered w-full dark:text-gray-100"
+								onInput={(e) =>
 									handleInput(e, { field: "Objeto del contrato" })
 								}
 							/>
 							<div className="label">
-								<span className="label-text text-gray-600">
+								<span className="label-text">
 									Escribe los conceptos separados por comas
 								</span>
 							</div>
+						</label>
+
+						<label className="form-control w-full">
+							<div className="label">
+								<span className="flex gap-2 label-text text-base font-bold text-gray-800">
+									<IconMapPin />
+									Buscar por lugar de ejecución
+								</span>
+							</div>
+							<input
+								list="places"
+								placeholder="Escribe para seleccionar lugar"
+								className="input input-bordered w-full dark:text-gray-100"
+								onInput={(e) => handleInput(e, { field: "Lugar de Ejecución" })}
+							/>
+							<datalist id="places">
+								{fields["Lugar de Ejecución"]?.map((place, index) => {
+									return <option key={place + index} value={place} />
+								})}
+							</datalist>
+						</label>
+
+						<label className="form-control w-full">
+							<div className="label">
+								<span className="flex gap-2 label-text text-base font-bold text-gray-800">
+									<IconBuildingEstate />
+									Buscar por órgano de contratación
+								</span>
+							</div>
+							<input
+								list="organs"
+								placeholder="Escribe para seleccionar órgano"
+								className="input input-bordered w-full dark:text-gray-100"
+								onInput={(e) =>
+									handleInput(e, { field: "Órgano de Contratación" })
+								}
+							/>
+							<datalist id="organs">
+								{fields["Órgano de Contratación"]?.map((organ, index) => {
+									return <option key={organ + index} value={organ} />
+								})}
+							</datalist>
 						</label>
 
 						{fields["Estado de la Licitación"] && (
@@ -270,6 +316,12 @@ export function LicitationsSearch({
 			</div>
 
 			<div className="flex flex-col w-full gap-4">
+				{licitations.length === 0 && (
+					<div className="font-bold text-xl my-4 text-center text-gray-800">
+						No se encontraron resultados
+					</div>
+				)}
+
 				{licitations.map((licitation) => (
 					<LicitationCard key={licitation.id} licitation={licitation} />
 				))}
@@ -278,8 +330,8 @@ export function LicitationsSearch({
 			<div className="join grid grid-cols-[1fr_auto_1fr] place-content-center">
 				<Link
 					href={getPrevPage()}
-					className={`join-item btn btn-outline ${
-						!page || page === 1 ? "btn-disabled" : ""
+					className={`join-item btn text-gray-800 ${
+						!page || page === 1 ? "btn-disabled" : "btn-outline"
 					}`}
 				>
 					Anterior página
@@ -287,8 +339,8 @@ export function LicitationsSearch({
 				<div className="self-center px-4 font-bold">{page || "1"}</div>
 				<Link
 					href={getNextPage()}
-					className={`join-item btn btn-outline ${
-						isNextPage ? "" : "btn-disabled"
+					className={`join-item btn text-gray-800 ${
+						isNextPage ? "btn-outline" : "btn-disabled"
 					}`}
 				>
 					Siguiente página
