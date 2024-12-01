@@ -18,9 +18,9 @@ const geistMono = localFont({
 export const metadata: Metadata = {
 	title: "Portal de Licitaciones y Contratos Públicos",
 	description:
-		"Consulta, busca y gestiona licitaciones y contratos públicos en España. Descubre oportunidades del sector público en tiempo real con nuestra plataforma.",
+		"Consulta, busca y gestiona licitaciones y contratos públicos en España. Descubre oportunidades del sector público en tiempo real con nuestra plataforma. Encuentre licitaciones de obras públicas.",
 	keywords:
-		"licitaciones, licitaciones del estado, contratación pública, contratos sector público, buscador de licitaciones, concesión de servicios, contratos de obras, licitaciones abiertas",
+		"licitaciones, licitaciones del estado, contratación pública, contratos sector público, buscador de licitaciones, concesión de servicios, contratos de obras, licitaciones abiertas, licitaciones de obras públicas.",
 }
 
 export default function RootLayout({

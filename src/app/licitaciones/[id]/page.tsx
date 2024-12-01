@@ -26,7 +26,7 @@ export default async function Licitacion({
 
 	return (
 		<Suspense fallback={<Loading />}>
-			<div className="p-6 bg-white shadow-lg my-8">
+			<div className="my-4">
 				<h1 className="text-2xl font-bold mb-6 text-gray-800 text-balance">
 					{licitation["Objeto del contrato"] || "Sin título"}
 				</h1>

@@ -25,6 +25,14 @@ export default function Footer() {
 									Últimas actualizaciones
 								</Link>
 							</li>
+							<li className="mb-1">
+								<Link
+									href="/licitaciones?Estado+de+la+Licitaci%C3%B3n=Publicada"
+									className="hover:text-white"
+								>
+									Últimas licitaciones publicadas
+								</Link>
+							</li>
 						</ul>
 					</div>
 					<div className="w-full md:w-1/3">

@@ -8,6 +8,8 @@ import {
 	IconMapPin,
 	IconHammer,
 	IconBuildingEstate,
+	IconFilterOff,
+	IconFilterFilled,
 } from "@tabler/icons-react"
 import { Licitation } from "@/types"
 import { LicitationCard } from "./LicitationCard"
@@ -32,6 +34,10 @@ export function LicitationsSearch({
 	const searchParams = useSearchParams()
 	const router = useRouter()
 	const resultsRef = useRef<HTMLDivElement | null>(null)
+
+	const isFilterClean = !new URLSearchParams(searchTerm)
+		.keys()
+		.some((key) => key !== "page")
 
 	useEffect(() => {
 		setSearchTerm(searchParams.toString())
@@ -138,23 +144,34 @@ export function LicitationsSearch({
 			<div>
 				<h1 className="text-3xl font-bold mb-6">Últimas actualizaciones</h1>
 
-				<details className="bg-gray-50 p-4" open>
-					<summary className="flex  justify-between items-center mb-4 gap-4">
-						<div className="cursor-pointer flex gap-2 items-center">
+				<details className="bg-gray-50" open>
+					<summary className="flex cursor-pointer justify-between items-center gap-4 p-4">
+						<div className="flex gap-2 items-center">
 							<IconCaretDownFilled size={32} />
 							<h2 className="text-lg font-semibold">Filtros</h2>
-							<IconFilter />
+							{isFilterClean ? <IconFilter /> : <IconFilterFilled />}
 						</div>
 					</summary>
 
-					<div className="flex flex-col gap-4">
-						<button
-							className="btn btn-info text-base gap-2 w-fit"
-							onClick={navigate}
-						>
-							<IconSearch className="w-5" />
-							Buscar
-						</button>
+					<div className="flex flex-col gap-4 p-4">
+						<div className="flex gap-2">
+							<button
+								className="btn btn-info text-base gap-2 w-fit"
+								onClick={navigate}
+							>
+								<IconSearch className="w-5" />
+								Buscar
+							</button>
+							<button
+								className={`btn btn-link text-info text-base gap-2 w-fit ${
+									isFilterClean ? "pointer-events-none text-opacity-60" : ""
+								}`}
+								onClick={() => setSearchTerm("")}
+							>
+								<IconFilterOff className={`w-5`} />
+								limpiar filtros
+							</button>
+						</div>
 
 						<label className="form-control w-full">
 							<div className="label">
@@ -224,7 +241,7 @@ export function LicitationsSearch({
 						</label>
 
 						{fields["Estado de la Licitación"] && (
-							<div className="flex flex-col gap-4">
+							<div className="flex flex-col gap-2">
 								<label className="font-bold text-gray-800">
 									Estado de la Licitación
 								</label>
@@ -232,13 +249,13 @@ export function LicitationsSearch({
 									{fields["Estado de la Licitación"].map((option, index) => {
 										return (
 											<div
-												className="flex gap-2 items-center"
+												className="flex gap-1 items-center"
 												key={option + index}
 											>
 												<label htmlFor={option}>{option}</label>
 												<input
 													type="checkbox"
-													className="checkbox checkbox-sm"
+													className="checkbox checkbox-sm border-gray-600"
 													onChange={(e) =>
 														handleChangeCheckbox(e, {
 															field: "Estado de la Licitación",
@@ -260,7 +277,7 @@ export function LicitationsSearch({
 						)}
 
 						{fields["Tipo de Contrato:"] && (
-							<div className="flex flex-col gap-4">
+							<div className="flex flex-col gap-2">
 								<label className="font-bold text-gray-800">
 									Tipo de Contrato
 								</label>
@@ -268,13 +285,13 @@ export function LicitationsSearch({
 									{fields["Tipo de Contrato:"].map((option, index) => {
 										return (
 											<div
-												className="flex gap-2 items-center"
+												className="flex gap-1 items-center"
 												key={option + index}
 											>
 												<label htmlFor={option}>{option}</label>
 												<input
 													type="checkbox"
-													className="checkbox checkbox-sm"
+													className="checkbox checkbox-sm border-gray-600"
 													onChange={(e) =>
 														handleChangeCheckbox(e, {
 															field: "Tipo de Contrato:",
@@ -296,7 +313,7 @@ export function LicitationsSearch({
 						)}
 
 						{fields["Tipo de tramitación"] && (
-							<div className="flex flex-col gap-4">
+							<div className="flex flex-col gap-2">
 								<label className="font-bold text-gray-800">
 									Tipo de tramitación
 								</label>
@@ -304,13 +321,13 @@ export function LicitationsSearch({
 									{fields["Tipo de tramitación"].map((option, index) => {
 										return (
 											<div
-												className="flex gap-2 items-center"
+												className="flex gap-1 items-center"
 												key={option + index}
 											>
 												<label htmlFor={option}>{option}</label>
 												<input
 													type="checkbox"
-													className="checkbox checkbox-sm"
+													className="checkbox checkbox-sm border-gray-600"
 													onChange={(e) =>
 														handleChangeCheckbox(e, {
 															field: "Tipo de tramitación",
@@ -330,14 +347,52 @@ export function LicitationsSearch({
 								</ul>
 							</div>
 						)}
-						<button
-							className="btn btn-info flex-1 text-base gap-2"
-							onClick={navigate}
-						>
-							<IconSearch className="w-5" />
-							Buscar
-						</button>
+
+						{fields["Método de presentación de la oferta"] && (
+							<div className="flex flex-col gap-2">
+								<label className="font-bold text-gray-800">
+									Método de presentación de la oferta
+								</label>
+								<ul className="flex gap-x-4 gap-y-2 flex-wrap">
+									{fields["Método de presentación de la oferta"].map(
+										(option, index) => {
+											return (
+												<div
+													className="flex gap-1 items-center"
+													key={option + index}
+												>
+													<label htmlFor={option}>{option}</label>
+													<input
+														type="checkbox"
+														className="checkbox checkbox-sm border-gray-600"
+														onChange={(e) =>
+															handleChangeCheckbox(e, {
+																field: "Método de presentación de la oferta",
+																value: option,
+															})
+														}
+														value={option}
+														id={option}
+														defaultChecked={isInSearchParam({
+															field: "Método de presentación de la oferta",
+															value: option,
+														})}
+													/>
+												</div>
+											)
+										}
+									)}
+								</ul>
+							</div>
+						)}
 					</div>
+					<button
+						className="btn btn-info text-base gap-4 rounded-none w-full flex py-4 items-center h-auto"
+						onClick={navigate}
+					>
+						<IconSearch className="w-5" />
+						Buscar
+					</button>
 				</details>
 			</div>
 

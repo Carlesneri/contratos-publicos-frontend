@@ -53,6 +53,22 @@ export function HomeContent() {
 			</section>
 
 			<section>
+				<h2>Licitaciones de obras públicas</h2>
+				<ul>
+					<li>
+						Información detallada sobre{" "}
+						<strong>licitaciones de obras públicas</strong> u otro tipo de
+						publicaciones en todo el territorio nacional.
+					</li>
+					<li>
+						Filtre los resultados por{" "}
+						<strong>tipo, objeto o ámbito territorial</strong>.
+					</li>
+					<li>Consulte el detalle ampliado accediendo a la licitación.</li>
+				</ul>
+			</section>
+
+			<section>
 				<h2>¿A quién va dirigido?</h2>
 				<ul>
 					<li>
