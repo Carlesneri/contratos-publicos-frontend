@@ -1,7 +1,9 @@
 import { LicitationsSearch } from "@/components/LicitationsSearch"
+import { Loading } from "@/components/Loading"
 import { DEFAULT_LIMIT } from "@/CONSTANTS"
 import { getFields } from "@/database/fields"
 import { getLastLicitations } from "@/database/licitations"
+import { Suspense } from "react"
 
 export default async function BuscarLicitaciones({
 	searchParams,
@@ -31,11 +33,13 @@ export default async function BuscarLicitaciones({
 	])
 
 	return (
-		<LicitationsSearch
-			initialLicitations={licitations.result}
-			isNextPage={licitations.isNextPage}
-			fields={fields}
-			page={Number(page) ? Number(page) : 1}
-		/>
+		<Suspense fallback={<Loading />}>
+			<LicitationsSearch
+				initialLicitations={licitations.result}
+				isNextPage={licitations.isNextPage}
+				fields={fields}
+				page={Number(page) ? Number(page) : 1}
+			/>
+		</Suspense>
 	)
 }

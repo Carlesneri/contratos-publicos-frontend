@@ -1,6 +1,6 @@
 "use client"
 
-import { ChangeEvent, FormEvent, useEffect, useState } from "react"
+import { ChangeEvent, FormEvent, useEffect, useRef, useState } from "react"
 import {
 	IconSearch,
 	IconFilter,
@@ -31,9 +31,12 @@ export function LicitationsSearch({
 	const [searchTerm, setSearchTerm] = useState("")
 	const searchParams = useSearchParams()
 	const router = useRouter()
+	const resultsRef = useRef<HTMLDivElement | null>(null)
 
 	useEffect(() => {
 		setSearchTerm(searchParams.toString())
+
+		resultsRef.current?.scrollIntoView({ behavior: "smooth" })
 	}, [searchParams])
 
 	useEffect(() => {
@@ -112,34 +115,47 @@ export function LicitationsSearch({
 		setSearchTerm(params.toString())
 	}
 
+	function navigate() {
+		const searchParams = new URLSearchParams(searchTerm)
+
+		searchParams.delete("page")
+
+		router.push(`/licitaciones/?${searchParams.toString()}`)
+	}
+
+	function getValue({
+		field,
+	}: {
+		field: (typeof VALID_LICITATION_FIELDS)[number]
+	}) {
+		const params = new URLSearchParams(searchTerm)
+
+		return params.get(field) || ""
+	}
+
 	return (
 		<div className="flex flex-col gap-4">
 			<div>
 				<h1 className="text-3xl font-bold mb-6">Últimas actualizaciones</h1>
 
 				<details className="bg-gray-50 p-4" open>
-					<summary className="flex items-center mb-4 gap-4">
+					<summary className="flex  justify-between items-center mb-4 gap-4">
 						<div className="cursor-pointer flex gap-2 items-center">
 							<IconCaretDownFilled size={32} />
 							<h2 className="text-lg font-semibold">Filtros</h2>
 							<IconFilter />
 						</div>
+					</summary>
+
+					<div className="flex flex-col gap-4">
 						<button
-							className="btn btn-outline btn-primary flex-1 text-base gap-2"
-							onClick={() => {
-								const searchParams = new URLSearchParams(searchTerm)
-
-								searchParams.delete("page")
-
-								router.push(`/licitaciones/?${searchParams.toString()}`)
-							}}
+							className="btn btn-info text-base gap-2 w-fit"
+							onClick={navigate}
 						>
 							<IconSearch className="w-5" />
 							Buscar
 						</button>
-					</summary>
 
-					<div className="flex flex-col gap-4">
 						<label className="form-control w-full">
 							<div className="label">
 								<span className="flex gap-2 label-text text-base font-bold text-gray-800">
@@ -154,6 +170,7 @@ export function LicitationsSearch({
 								onInput={(e) =>
 									handleInput(e, { field: "Objeto del contrato" })
 								}
+								value={getValue({ field: "Objeto del contrato" })}
 							/>
 							<div className="label">
 								<span className="label-text">
@@ -174,6 +191,7 @@ export function LicitationsSearch({
 								placeholder="Escribe para seleccionar lugar"
 								className="input input-bordered w-full dark:text-gray-100"
 								onInput={(e) => handleInput(e, { field: "Lugar de Ejecución" })}
+								value={getValue({ field: "Lugar de Ejecución" })}
 							/>
 							<datalist id="places">
 								{fields["Lugar de Ejecución"]?.map((place, index) => {
@@ -196,6 +214,7 @@ export function LicitationsSearch({
 								onInput={(e) =>
 									handleInput(e, { field: "Órgano de Contratación" })
 								}
+								value={getValue({ field: "Órgano de Contratación" })}
 							/>
 							<datalist id="organs">
 								{fields["Órgano de Contratación"]?.map((organ, index) => {
@@ -311,11 +330,18 @@ export function LicitationsSearch({
 								</ul>
 							</div>
 						)}
+						<button
+							className="btn btn-info flex-1 text-base gap-2"
+							onClick={navigate}
+						>
+							<IconSearch className="w-5" />
+							Buscar
+						</button>
 					</div>
 				</details>
 			</div>
 
-			<div className="flex flex-col w-full gap-4">
+			<div className="flex flex-col w-full gap-4" ref={resultsRef}>
 				{licitations.length === 0 && (
 					<div className="font-bold text-xl my-4 text-center text-gray-800">
 						No se encontraron resultados
