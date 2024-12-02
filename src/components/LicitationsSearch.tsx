@@ -158,7 +158,7 @@ export function LicitationsSearch({
 					)
 				})}
 
-				<details className="bg-gray-50" open>
+				<details className="bg-white" open>
 					<summary className="flex cursor-pointer justify-between items-center gap-4 p-4">
 						<div className="flex gap-2 items-center">
 							<IconCaretDownFilled size={32} />
@@ -167,7 +167,7 @@ export function LicitationsSearch({
 						</div>
 					</summary>
 
-					<div className="flex flex-col gap-4 p-4">
+					<div className="flex flex-col gap-4 p-4 border-t-2 border-slate-200 bg-gray-50">
 						<div className="flex gap-2">
 							<button
 								className={`btn btn-link text-info text-base gap-2 w-fit ${

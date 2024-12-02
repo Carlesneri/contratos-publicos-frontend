@@ -20,7 +20,7 @@ export default async function BuscarLicitaciones({
 	const { page, ...restOfParams } = params
 
 	const licitationsPromise = getLastLicitations({
-		skip: Number(page) ? Number(page) * DEFAULT_LIMIT : 0,
+		skip: Number(page) ? (Number(page) - 1) * DEFAULT_LIMIT : 0,
 		limit: DEFAULT_LIMIT,
 		searchParams: restOfParams,
 	})
