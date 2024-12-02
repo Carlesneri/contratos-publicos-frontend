@@ -168,7 +168,7 @@ export function LicitationsSearch({
 					</summary>
 
 					<div className="flex flex-col gap-4 p-4 border-t-2 border-slate-200 bg-gray-50">
-						<div className="flex gap-2">
+						<div className="flex gap-2 flex-wrap">
 							<button
 								className={`btn btn-link text-info text-base gap-2 w-fit ${
 									isFilterClean ? "pointer-events-none text-opacity-60" : ""
