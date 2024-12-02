@@ -39,34 +39,32 @@ export default async function LicitacionesPage() {
 	return (
 		<>
 			<h1 className="my-4 font-black">
-				Portal de contratos y licitciones públicas
+				Portal de contratos y licitaciones públicas
 			</h1>
-			<div className="flex flex-col gap-4">
-				<div className="flex gap-2 items-center flex-wrap">
-					<h3 className="text-2xl font-bold">Últimas publicaciones</h3>
-					<Link
-						href={`/licitaciones?${verMasSearchParams.toString()}`}
-						className="btn btn-link text-success text-lg text-start p-0"
-					>
-						ver todas las publicaciones
-					</Link>
-				</div>
-				<div className="flex flex-col w-full gap-4 items-center">
-					{licitations.result.map((licitation) => (
-						<LicitationCard key={licitation.id} licitation={licitation} />
-					))}
-					<Link
-						href={`/licitaciones?${verMasSearchParams.toString()}`}
-						className="btn btn-ghost w-fit"
-					>
-						Ver más
-						<IconArrowRight />
-					</Link>
-				</div>
-				<HomeContent />
-
-				<LinkList list={quickLinks} />
+			<HomeContent />
+			<div className="flex gap-x-4 items-center flex-wrap">
+				<h3 className="text-2xl font-bold">Últimas publicadas</h3>
+				<Link
+					href={`/licitaciones?${verMasSearchParams.toString()}`}
+					className="btn btn-link text-success w-fit p-0 text-lg"
+				>
+					ver todas
+					<IconArrowRight />
+				</Link>
 			</div>
+			<div className="flex flex-col w-full gap-4 items-center">
+				{licitations.result.map((licitation) => (
+					<LicitationCard key={licitation.id} licitation={licitation} />
+				))}
+				<Link
+					href={`/licitaciones?${verMasSearchParams.toString()}`}
+					className="btn btn-ghost w-fit"
+				>
+					Ver más
+					<IconArrowRight />
+				</Link>
+			</div>
+			<LinkList list={quickLinks} />
 		</>
 	)
 }

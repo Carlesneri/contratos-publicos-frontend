@@ -183,7 +183,7 @@ export function LicitationsSearch({
 								onClick={navigate}
 							>
 								<IconSearch className="w-5" />
-								Buscar
+								nueva búsqueda
 							</button>
 						</div>
 
@@ -405,7 +405,7 @@ export function LicitationsSearch({
 						onClick={navigate}
 					>
 						<IconSearch className="w-5" />
-						Buscar
+						nueva búsqueda
 					</button>
 				</details>
 			</div>
