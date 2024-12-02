@@ -1,4 +1,4 @@
 - Save licitation
-- Clear filters
 - Save filter
 - Last searchs
+- Suggestions under the licitation detail, with other similar licitations

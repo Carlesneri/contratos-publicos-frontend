@@ -1,4 +1,5 @@
 import { LicitationsSearch } from "@/components/LicitationsSearch"
+import { LinkList } from "@/components/LinkList"
 import { Loading } from "@/components/Loading"
 import { DEFAULT_LIMIT } from "@/CONSTANTS"
 import { getFields } from "@/database/fields"
@@ -40,6 +41,7 @@ export default async function BuscarLicitaciones({
 				fields={fields}
 				page={Number(page) ? Number(page) : 1}
 			/>
+			<LinkList />
 		</Suspense>
 	)
 }
