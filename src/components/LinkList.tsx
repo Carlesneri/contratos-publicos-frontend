@@ -17,6 +17,14 @@ const quickLinks = [
 		title: "via rápida",
 		url: "/licitaciones?M%C3%A9todo+de+presentaci%C3%B3n+de+la+oferta=Electr%C3%B3nica&Tipo+de+tramitaci%C3%B3n=Urgente%2CEmergencia&Estado+de+la+Licitaci%C3%B3n=Evaluaci%C3%B3n%2CPublicada%2CParcialmente+Resuelta%2CAnuncio+Previo%2CParcialmente+Adjudicada",
 	},
+	{
+		title: "instituciones penitenciarias",
+		url: "/licitaciones?Objeto+del+contrato=instituciones+penitenciarias",
+	},
+	{
+		title: "jardinería y parques",
+		url: "/licitaciones?Objeto+del+contrato=jardin%2C+jard%C3%ADn%2C+parque&Estado+de+la+Licitaci%C3%B3n=Evaluaci%C3%B3n%2CPublicada%2CAnuncio+previo+%28reducci%C3%B3n+de+plazos%29%2CAnuncio+Previo",
+	},
 ]
 
 export function LinkList({

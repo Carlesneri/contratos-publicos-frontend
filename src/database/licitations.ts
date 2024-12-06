@@ -20,6 +20,7 @@ export async function getLastLicitations(
 	const searchParamsQuery: RootQuerySelector<any> = {}
 
 	const searchAggregates: FilterQuery<any>[] | undefined = []
+	const searchOptionals: FilterQuery<any>[] | undefined = []
 
 	Object.entries(searchParams).forEach(([key, value]) => {
 		if (key === "Objeto del contrato") {
@@ -28,7 +29,7 @@ export async function getLastLicitations(
 				.map((v) => v.trim())
 				.filter(Boolean)
 				.forEach((v) => {
-					searchAggregates.push({
+					searchOptionals.push({
 						"Objeto del contrato": {
 							$regex: new RegExp(swapAccentsByDots(v)),
 							$options: "i",
@@ -66,6 +67,7 @@ export async function getLastLicitations(
 
 	const licitations = await LicitationModel.find({
 		$and: searchAggregates,
+		$or: searchOptionals,
 		...searchParamsQuery,
 	})
 		.sort({ createdAt: -1 })
