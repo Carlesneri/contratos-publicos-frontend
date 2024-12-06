@@ -68,7 +68,7 @@ export async function getLastLicitations(
 		$and: searchAggregates,
 		...searchParamsQuery,
 	})
-		.sort({ updatedAt: -1 })
+		.sort({ createdAt: -1 })
 		.limit(limit + 1)
 		.skip(skip)
 

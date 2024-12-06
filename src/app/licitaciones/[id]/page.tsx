@@ -10,6 +10,7 @@ import {
 import { InfoItem } from "@/components/InfoItem"
 import { Suspense } from "react"
 import { Loading } from "@/components/Loading"
+import Link from "next/link"
 
 export default async function Licitacion({
 	params,
@@ -19,6 +20,18 @@ export default async function Licitacion({
 	const id = (await params).id
 
 	const licitation = await getLicitation(id)
+
+	const documents = []
+
+	for (let i = 1; i < 10; i++) {
+		const date = licitation?.[`documento-${i}-date`]
+		const name = licitation?.[`documento-${i}-name`]
+		const link = licitation?.[`documento-${i}-link`]
+
+		if (date || name || link) {
+			documents.push({ date, name, link })
+		}
+	}
 
 	if (!licitation) {
 		return notFound()
@@ -38,6 +51,13 @@ export default async function Licitacion({
 							label="Expediente"
 							value={licitation.Expediente}
 						/>
+						{licitation["Fecha de Actualización del Expte."] && (
+							<InfoItem
+								icon={<IconCalendar className="w-5 h-5" />}
+								label="Expediente"
+								value={licitation["Fecha de Actualización del Expte."]}
+							/>
+						)}
 						<InfoItem
 							icon={<IconCalendar className="w-5 h-5" />}
 							label="Fecha fin de presentación de oferta"
@@ -119,6 +139,38 @@ export default async function Licitacion({
 						/>
 					</div>
 				</div>
+
+				{documents.length > 0 && (
+					<div className="mt-8">
+						<h3 className="font-bold">Documentos</h3>
+						<div className="flex flex-col">
+							{documents.map((doc, i) => {
+								return (
+									<div
+										key={`${doc.link}-${i}`}
+										className="flex flex-wrap items-center gap-2"
+									>
+										{doc.name && <h4>{doc.name}</h4>}
+										{doc.date && (
+											<h6 className="font-bold text-sm text-gray-700">
+												{doc.date}
+											</h6>
+										)}
+										{doc.link && (
+											<Link
+												href={doc.link}
+												target="_blank"
+												className="text-success flex gap-2 font-bold items-center pb-1 hover:opacity-80 transition-opacity text-sm"
+											>
+												<IconExternalLink className="w-5" />
+											</Link>
+										)}
+									</div>
+								)
+							})}
+						</div>
+					</div>
+				)}
 
 				<div className="mt-8">
 					<a

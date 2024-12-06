@@ -42,22 +42,22 @@ export function LicitationCard({ licitation }: { licitation: Licitation }) {
 							</span>
 						)}
 					</header>
-					<div className="flex gap-x-3 flex-wrap items-center text-gray-300">
+					<div className="flex flex-col gap-2 flex-wrap text-gray-300 font-bold">
 						{licitation["Tipo de Contrato:"] && (
 							<p className="text-sm " title="tipo de contrato">
 								{licitation["Tipo de Contrato:"]}
 							</p>
 						)}
 						{licitation["Fecha fin de presentación de oferta"] && (
-							<p className="text-sm  flex items-center gap-2">
-								<IconCalendar className="w-4" />
+							<p className="text-sm">
+								<IconCalendar className="w-4 pb-1 inline" />{" "}
 								<span className="font-medium">Finaliza:</span>{" "}
 								{licitation["Fecha fin de presentación de oferta"]}
 							</p>
 						)}
 						{licitation["Valor estimado del contrato:"] && (
-							<p className="text-sm flex items-center gap-2">
-								<IconCurrencyEuro className="w-4" />
+							<p className="text-sm">
+								<IconCurrencyEuro className="w-4 pb-1 inline" />{" "}
 								<span className="font-medium">
 									Valor estimado del contrato:
 								</span>{" "}
