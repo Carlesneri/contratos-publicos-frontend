@@ -1,6 +1,6 @@
 import Link from "next/link"
 
-const quickLinks = [
+const quickLinks: { title: string; url: string }[] = [
 	{
 		title: "publicadas",
 		url: "/licitaciones?Estado+de+la+Licitación=Publicada",
@@ -24,6 +24,10 @@ const quickLinks = [
 	{
 		title: "jardinería y parques",
 		url: "/licitaciones?Objeto+del+contrato=jardin%2C+jard%C3%ADn%2C+parque&Estado+de+la+Licitaci%C3%B3n=Evaluaci%C3%B3n%2CPublicada%2CAnuncio+previo+%28reducci%C3%B3n+de+plazos%29%2CAnuncio+Previo",
+	},
+	{
+		title: "correos",
+		url: "/licitaciones?%C3%93rgano+de+Contrataci%C3%B3n=Consejo+de+Administraci%C3%B3n+de+Correos+Express+Paqueter%C3%ADa+Urgente%2C+S.A.+-+S.M.E.",
 	},
 ]
 
