@@ -11,6 +11,7 @@ import { InfoItem } from "@/components/InfoItem"
 import { Suspense } from "react"
 import { Loading } from "@/components/Loading"
 import Link from "next/link"
+import { ToolsBar } from "@/components/ToolsBar"
 
 export default async function Licitacion({
 	params,
@@ -39,10 +40,12 @@ export default async function Licitacion({
 
 	return (
 		<Suspense fallback={<Loading />}>
-			<div className="my-4">
-				<h1 className="text-2xl font-bold mb-6 text-gray-800 text-balance">
+			<div className="my-4 flex flex-col gap-4">
+				<h1 className="text-xl font-bold text-gray-800 text-balance">
 					{licitation["Objeto del contrato"] || "Sin título"}
 				</h1>
+
+				<ToolsBar licitationId={id} title={licitation["Objeto del contrato"]} />
 
 				<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 					<div className="space-y-4">

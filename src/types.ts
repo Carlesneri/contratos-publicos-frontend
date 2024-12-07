@@ -26,3 +26,10 @@ export interface Licitation {
 	"Código CPV"?: string
 	"Fecha fin de presentación de solicitud"?: string
 }
+
+export type ToastType = "success" | "warning" | "error"
+
+export interface LocalStorageLicitation {
+	id: string
+	title: string
+}

@@ -54,3 +54,5 @@ export const VALID_LICITATION_FIELDS = [
 ] as const
 
 export const DEFAULT_LIMIT = 10
+
+export const LOCAL_STORAGE_SAVED_LICITATIONS = "savedLicitations"
