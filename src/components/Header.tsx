@@ -54,6 +54,11 @@ export function Header() {
 							tabIndex={0}
 							className="dropdown-content menu bg-white z-[1] w-64 shadow"
 						>
+							{savedLicitations.length === 0 && (
+								<li className="text-center text-gray-400 font-bold">
+									No hay licitaciones guardadas
+								</li>
+							)}
 							{savedLicitations.map((licitation) => {
 								return (
 									<li key={licitation.id} className="">
