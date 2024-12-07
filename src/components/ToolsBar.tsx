@@ -79,16 +79,28 @@ export function ToolsBar({
 	}
 
 	function handleClickShareLicitation() {
-		navigator.canShare() ? shareLicitation() : copyClipboardLicitation()
+		const shareLicitationObject = {
+			title: "Licitatión | contratopublico.es",
+			text: title || "Mira esta licitación",
+			url: window.location.href,
+		}
+
+		navigator.canShare(shareLicitationObject)
+			? shareLicitation(shareLicitationObject)
+			: copyClipboardLicitation()
 	}
 
-	function shareLicitation() {
+	function shareLicitation(shareLicitationObject: {
+		title: string
+		text: string
+		url: string
+	}) {
 		if (navigator.share) {
-			navigator.share({
-				title: "Licitatión | contratopublico.es",
-				text: title || "Mira esta licitación",
-				url: window.location.href,
-			})
+			try {
+				navigator.share(shareLicitationObject)
+			} catch {
+				setToast({ text: "No se pudo compartir.", type: "error" })
+			}
 		}
 	}
 
