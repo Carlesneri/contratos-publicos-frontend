@@ -15,8 +15,12 @@ import { Licitation } from "@/types"
 import { LicitationCard } from "./LicitationCard"
 import { useSearchParams, useRouter } from "next/navigation"
 import Link from "next/link"
-import { VALID_LICITATION_FIELDS } from "@/CONSTANTS"
+import {
+	LOCAL_STORAGE_SAVED_SEARCHES,
+	VALID_LICITATION_FIELDS,
+} from "@/CONSTANTS"
 import { Fields } from "@/database/fields"
+import { LastSearches } from "./LastSearches"
 
 export function LicitationsSearch({
 	initialLicitations,
@@ -29,29 +33,45 @@ export function LicitationsSearch({
 	fields: Fields
 	isNextPage: boolean
 }) {
-	const [licitations, setlicitations] = useState(initialLicitations)
 	const [searchTerm, setSearchTerm] = useState("")
 	const searchParams = useSearchParams()
 	const router = useRouter()
 	const resultsRef = useRef<HTMLDivElement | null>(null)
 
-	const isFilterClean = !new URLSearchParams(searchTerm)
-		.keys()
-		.some((key) => key !== "page")
+	const isFilterClean = new URLSearchParams(searchTerm).size === 0
 
 	useEffect(() => {
-		setSearchTerm(searchParams.toString())
+		const filterSearchParams = new URLSearchParams()
+
+		Array.from(searchParams.entries()).forEach(([key, value]) => {
+			if (VALID_LICITATION_FIELDS.some((field) => field === key)) {
+				filterSearchParams.set(key, value)
+			}
+		})
+
+		setSearchTerm(filterSearchParams.toString())
+
+		if (filterSearchParams.size > 0) {
+			const saveSearchLink = filterSearchParams.toString()
+
+			const localStorageSavedSearches = JSON.parse(
+				localStorage.getItem(LOCAL_STORAGE_SAVED_SEARCHES) || "[]"
+			) as string[]
+
+			const newSavedSearches = Array.from(
+				new Set([saveSearchLink, ...localStorageSavedSearches])
+			).slice(0, 5)
+
+			localStorage.setItem(
+				LOCAL_STORAGE_SAVED_SEARCHES,
+				JSON.stringify(newSavedSearches)
+			)
+
+			window.dispatchEvent(new Event("storage"))
+		}
 
 		resultsRef.current?.scrollIntoView({ behavior: "smooth" })
 	}, [searchParams])
-
-	useEffect(() => {
-		setlicitations(initialLicitations)
-	}, [initialLicitations])
-
-	useEffect(() => {
-		console.log({ searchTerm })
-	}, [searchTerm])
 
 	const getPrevPage = () => {
 		const prevPage = page ? page - 1 : 1
@@ -122,11 +142,7 @@ export function LicitationsSearch({
 	}
 
 	function navigate() {
-		const searchParams = new URLSearchParams(searchTerm)
-
-		searchParams.delete("page")
-
-		router.push(`/licitaciones/?${searchParams.toString()}`)
+		router.push(`/licitaciones/?${searchTerm}`)
 	}
 
 	function getValue({
@@ -410,14 +426,16 @@ export function LicitationsSearch({
 				</details>
 			</div>
 
+			<LastSearches />
+
 			<div className="flex flex-col w-full gap-4" ref={resultsRef}>
-				{licitations.length === 0 && (
+				{initialLicitations.length === 0 && (
 					<div className="font-bold text-xl my-4 text-center text-gray-800">
 						No se encontraron resultados
 					</div>
 				)}
 
-				{licitations.map((licitation) => (
+				{initialLicitations.map((licitation) => (
 					<LicitationCard key={licitation.id} licitation={licitation} />
 				))}
 			</div>

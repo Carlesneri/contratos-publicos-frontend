@@ -4,6 +4,7 @@ import { HomeContent } from "@/components/HomeContent"
 import Link from "next/link"
 import { IconArrowRight } from "@tabler/icons-react"
 import { LinkList } from "@/components/LinkList"
+import { LastSearches } from "@/components/LastSearches"
 
 export const dynamic = "force-dynamic"
 
@@ -23,6 +24,7 @@ export default async function LicitacionesPage() {
 				Portal de contratos y licitaciones públicas
 			</h1>
 			<HomeContent />
+			<LastSearches />
 			<div className="flex gap-x-4 items-center flex-wrap">
 				<h3 className="text-2xl font-bold">Últimas publicadas</h3>
 				<Link

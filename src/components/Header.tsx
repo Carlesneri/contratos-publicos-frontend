@@ -2,7 +2,12 @@
 
 import { LOCAL_STORAGE_SAVED_LICITATIONS } from "@/CONSTANTS"
 import { LocalStorageLicitation } from "@/types"
-import { IconHome, IconSearch, IconStar } from "@tabler/icons-react"
+import {
+	IconHome,
+	IconSearch,
+	IconStar,
+	IconStarFilled,
+} from "@tabler/icons-react"
 import Link from "next/link"
 import { useEffect, useState } from "react"
 
@@ -52,7 +57,7 @@ export function Header() {
 						</div>
 						<ul
 							tabIndex={0}
-							className="dropdown-content menu bg-white z-[1] w-64 shadow"
+							className="dropdown-content menu bg-white z-[1] w-64 shadow p-0"
 						>
 							{savedLicitations.length === 0 && (
 								<li className="text-center text-gray-400 font-bold">
@@ -61,12 +66,14 @@ export function Header() {
 							)}
 							{savedLicitations.map((licitation) => {
 								return (
-									<li key={licitation.id} className="">
+									<li key={licitation.id} className="flex">
 										<Link
 											href={`/licitaciones/${licitation.id}`}
 											className="font-bold text-gray-600 hover:text-success transition-colors hover:bg-gray-100 rounded-none"
+											title={licitation.title}
 										>
 											<span className="overflow-hidden line-clamp-2">
+												<IconStarFilled className="inline w-3 pb-1 mr-1" />
 												{licitation.title}
 											</span>
 										</Link>
