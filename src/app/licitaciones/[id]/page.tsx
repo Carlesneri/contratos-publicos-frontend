@@ -12,6 +12,7 @@ import { Suspense } from "react"
 import { Loading } from "@/components/Loading"
 import Link from "next/link"
 import { ToolsBar } from "@/components/ToolsBar"
+import { Suggestions } from "@/components/Suggestions"
 
 export default async function Licitacion({
 	params,
@@ -36,6 +37,19 @@ export default async function Licitacion({
 
 	if (!licitation) {
 		return notFound()
+	}
+
+	const getMoreLink = ({ field, value }: { field: string; value: string }) => {
+		if (!value) return null
+
+		const urlSearchParams = new URLSearchParams()
+
+		urlSearchParams.set(field, value)
+
+		return {
+			label: `Ver más de ${value}`,
+			href: `/licitaciones?${urlSearchParams.toString()}`,
+		}
 	}
 
 	return (
@@ -75,6 +89,10 @@ export default async function Licitacion({
 							icon={<IconMapPin className="w-5 h-5" />}
 							label="Lugar de Ejecución"
 							value={licitation["Lugar de Ejecución"]}
+							moreLink={getMoreLink({
+								field: "Lugar de Ejecución",
+								value: licitation["Lugar de Ejecución"],
+							})}
 						/>
 						<InfoItem
 							icon={<IconCurrencyEuro className="w-5 h-5" />}
@@ -94,6 +112,10 @@ export default async function Licitacion({
 						<InfoItem
 							label="Tipo de Contrato"
 							value={licitation["Tipo de Contrato:"]}
+							moreLink={getMoreLink({
+								field: "Tipo de Contrato:",
+								value: licitation["Tipo de Contrato:"],
+							})}
 						/>
 						<InfoItem
 							label="Procedimiento"
@@ -102,6 +124,10 @@ export default async function Licitacion({
 						<InfoItem
 							label="Órgano de Contratación"
 							value={licitation["Órgano de Contratación"]}
+							moreLink={getMoreLink({
+								field: "Órgano de Contratación",
+								value: licitation["Órgano de Contratación"],
+							})}
 						/>
 					</div>
 				</div>
@@ -187,6 +213,8 @@ export default async function Licitacion({
 					</a>
 				</div>
 			</div>
+
+			<Suggestions licitation={licitation} />
 		</Suspense>
 	)
 }

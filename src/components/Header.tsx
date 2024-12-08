@@ -49,7 +49,7 @@ export function Header() {
 				</div>
 
 				<div className="flex gap-2 items-center">
-					<div className="dropdown dropdown-hover dropdown-end">
+					<div className="dropdown dropdown-hover relative">
 						<div tabIndex={0} role="button" className="m-2">
 							<div className="flex gap-1 items-center text-gray-200">
 								<IconStar />({savedLicitations.length})
@@ -57,7 +57,7 @@ export function Header() {
 						</div>
 						<ul
 							tabIndex={0}
-							className="dropdown-content menu bg-white z-[1] w-64 shadow p-0"
+							className="dropdown-content menu bg-white z-[1] w-64 shadow p-0 absolute right-0 translate-x-1/2"
 						>
 							{savedLicitations.length === 0 && (
 								<li className="text-center text-gray-400 font-bold">

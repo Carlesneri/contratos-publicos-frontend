@@ -3,6 +3,7 @@ import { connectDB } from "."
 import { FilterQuery } from "mongoose"
 import { RootQuerySelector } from "mongoose"
 import { swapAccentsByDots } from "@/utils"
+import { Licitation } from "@/types"
 
 await connectDB()
 
@@ -96,5 +97,60 @@ export async function getLicitation(id: string) {
 		return (await LicitationModel.findById(id))?.toObject() || null
 	} catch {
 		return null
+	}
+}
+
+export async function getSuggestions({
+	licitation,
+	limit = 10,
+	skip = 0,
+}: {
+	licitation: Licitation
+	limit?: number
+	skip?: number
+}) {
+	const searchParamsQuery: RootQuerySelector<any> = {}
+	const searchAggregates: FilterQuery<any>[] | undefined = []
+	const searchOptionals: FilterQuery<any>[] | undefined = []
+
+	if (licitation["Tipo de Contrato:"]) {
+		searchParamsQuery["Tipo de Contrato:"] = licitation["Tipo de Contrato:"]
+	}
+
+	if (licitation["Lugar de Ejecución"]) {
+		searchOptionals.push({
+			"Lugar de Ejecución": licitation["Lugar de Ejecución"],
+		})
+	}
+
+	if (licitation["Órgano de Contratación"]) {
+		searchOptionals.push({
+			"Órgano de Contratación": licitation["Órgano de Contratación"],
+		})
+	}
+
+	const licitations = await LicitationModel.find({
+		$and: searchAggregates,
+		$or: searchOptionals,
+		...searchParamsQuery,
+	})
+		.sort({ createdAt: -1 })
+		.limit(limit + 1)
+		.skip(skip)
+
+	const mappedLicitations = licitations.map((doc) => {
+		const { _id, ...restOfDoc } = doc.toObject()
+
+		const docObject = {
+			...restOfDoc,
+			id: _id.toString(),
+		}
+
+		return docObject
+	})
+
+	return {
+		result: mappedLicitations.slice(0, limit),
+		isNextPage: mappedLicitations.length > limit,
 	}
 }
