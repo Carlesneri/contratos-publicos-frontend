@@ -3,6 +3,7 @@ import localFont from "next/font/local"
 import "./globals.css"
 import Footer from "@/components/Footer"
 import { Header } from "@/components/Header"
+import Script from "next/script"
 
 const geistSans = localFont({
 	src: "./fonts/GeistVF.woff",
@@ -36,6 +37,21 @@ export default function RootLayout({
 			<body
 				className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen bg-slate-200 text-gray-800 flex flex-col`}
 			>
+				{/* <!-- Google tag (gtag.js) --> */}
+				<Script
+					async
+					src="https://www.googletagmanager.com/gtag/js?id=G-6W344SC0BL"
+				/>
+				<Script id="google-analytics">
+					{`
+					window.dataLayer = window.dataLayer || [];
+					function gtag(){dataLayer.push(arguments);}
+					gtag('js', new Date());
+					
+					gtag('config', 'G-6W344SC0BL');
+					`}
+				</Script>
+				{/* <!-- Google tag (gtag.js) --> */}
 				<Header />
 				<main className="flex flex-1 container mx-auto my-6 px-4 md:px-8 max-w-5xl gap-6 flex-col">
 					{children}

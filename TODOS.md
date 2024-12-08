@@ -1,1 +1,0 @@
-- Suggestions under the licitation detail, with other similar licitations
