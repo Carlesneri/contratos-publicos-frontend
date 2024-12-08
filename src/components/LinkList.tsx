@@ -29,6 +29,14 @@ const quickLinks: { title: string; url: string }[] = [
 		title: "correos",
 		url: "/licitaciones?%C3%93rgano+de+Contrataci%C3%B3n=Consejo+de+Administraci%C3%B3n+de+Correos+Express+Paqueter%C3%ADa+Urgente%2C+S.A.+-+S.M.E.",
 	},
+	{
+		title: "paradores",
+		url: "/licitaciones?Órgano+de+Contratación=Paradores+de+Turismo+de+España%2C+S.M.E.%2C+S.A.",
+	},
+	{
+		title: "alumbrado público",
+		url: "/licitaciones?Objeto+del+contrato=alumbrado+público",
+	},
 ]
 
 export function LinkList({

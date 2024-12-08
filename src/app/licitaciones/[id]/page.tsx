@@ -17,8 +17,8 @@ import { Loading } from "@/components/Loading"
 import Link from "next/link"
 import { ToolsBar } from "@/components/ToolsBar"
 import { Suggestions } from "@/components/Suggestions"
-import Head from "next/head"
 import type { Metadata } from "next"
+import { LastSearches } from "@/components/LastSearches"
 
 type Props = {
 	params: Promise<{ id: string }>
@@ -241,6 +241,8 @@ export default async function Licitacion({
 			</div>
 
 			<Suggestions licitation={licitation} />
+
+			<LastSearches />
 		</Suspense>
 	)
 }
