@@ -3,7 +3,7 @@
 import { LOCAL_STORAGE_SAVED_LICITATIONS } from "@/CONSTANTS"
 import { LocalStorageLicitation } from "@/types"
 import {
-	IconHome,
+	IconKeyframeFilled,
 	IconSearch,
 	IconStar,
 	IconStarFilled,
@@ -43,7 +43,7 @@ export function Header() {
 						className="flex gap-2 items-center btn btn-link text-info text-lg p-0"
 						aria-current="page"
 					>
-						<IconHome />
+						<IconKeyframeFilled />
 						Home
 					</Link>
 				</div>
