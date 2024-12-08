@@ -1,4 +1,4 @@
-import { IconChevronRight } from "@tabler/icons-react"
+import { IconCaretRightFilled } from "@tabler/icons-react"
 import Link from "next/link"
 
 type MoreLink = {
@@ -22,18 +22,21 @@ export function InfoItem({
 			{icon && <span className="mr-2 text-gray-500">{icon}</span>}
 			<div>
 				<p className="text-sm font-medium text-gray-500">{label}</p>
-				<p className="text-base text-gray-800 inline-flex flex-wrap items-center gap-2">
-					{value || "N/A"}{" "}
+				<div className="flex flex-wrap items-center gap-2">
+					<p className="text-base text-gray-800">{value || "N/A"}</p>
 					{moreLink && (
-						<Link
-							href={moreLink.href}
-							className="btn btn-link text-info text-sm p-0"
-						>
-							<IconChevronRight size={18} />
-							{moreLink.label}
-						</Link>
+						<div className="flex items-center text-info text-sm">
+							<IconCaretRightFilled size={18} />
+							<Link
+								href={moreLink.href}
+								className="line-clamp-1"
+								title={moreLink.label}
+							>
+								{moreLink.label}
+							</Link>
+						</div>
 					)}
-				</p>
+				</div>
 			</div>
 		</div>
 	)

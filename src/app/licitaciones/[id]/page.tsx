@@ -6,6 +6,10 @@ import {
 	IconCurrencyEuro,
 	IconFileDescription,
 	IconExternalLink,
+	IconProgressCheck,
+	IconBriefcase,
+	IconTimelineEvent,
+	IconTransferIn,
 } from "@tabler/icons-react"
 import { InfoItem } from "@/components/InfoItem"
 import { Suspense } from "react"
@@ -13,6 +17,24 @@ import { Loading } from "@/components/Loading"
 import Link from "next/link"
 import { ToolsBar } from "@/components/ToolsBar"
 import { Suggestions } from "@/components/Suggestions"
+import Head from "next/head"
+import type { Metadata } from "next"
+
+type Props = {
+	params: Promise<{ id: string }>
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+	const id = (await params).id
+
+	const licitation = await getLicitation(id)
+
+	return {
+		title: `Licitación ${licitation?.["Expediente"]}`,
+		description:
+			licitation?.["Objeto del contrato"] || "Detalle de la licitación",
+	}
+}
 
 export default async function Licitacion({
 	params,
@@ -106,10 +128,12 @@ export default async function Licitacion({
 
 					<div className="space-y-4">
 						<InfoItem
+							icon={<IconProgressCheck className="w-5 h-5" />}
 							label="Estado"
 							value={licitation["Estado de la Licitación"]}
 						/>
 						<InfoItem
+							icon={<IconBriefcase className="w-5 h-5" />}
 							label="Tipo de Contrato"
 							value={licitation["Tipo de Contrato:"]}
 							moreLink={getMoreLink({
@@ -118,10 +142,12 @@ export default async function Licitacion({
 							})}
 						/>
 						<InfoItem
+							icon={<IconTimelineEvent className="w-5 h-5" />}
 							label="Procedimiento"
 							value={licitation["Procedimiento de contratación"]}
 						/>
 						<InfoItem
+							icon={<IconTransferIn className="w-5 h-5" />}
 							label="Órgano de Contratación"
 							value={licitation["Órgano de Contratación"]}
 							moreLink={getMoreLink({
