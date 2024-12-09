@@ -36,7 +36,7 @@ export async function getFields() {
 
 	const licitations = await LicitationModel.find()
 		.limit(1000)
-		.sort({ updatedAt: -1 })
+		.sort({ createdAt: -1 })
 
 	licitations.forEach((licitation) => {
 		Object.keys(fieldsCache).forEach((key) => {
