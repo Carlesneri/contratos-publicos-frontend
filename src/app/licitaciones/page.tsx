@@ -4,7 +4,16 @@ import { Loading } from "@/components/Loading"
 import { DEFAULT_LIMIT } from "@/CONSTANTS"
 import { getFields } from "@/database/fields"
 import { getLastLicitations } from "@/database/licitations"
+import { Metadata } from "next"
 import { Suspense } from "react"
+
+export const metadata: Metadata = {
+	title: "Buscador de Licitaciones y Contratos Públicos",
+	description:
+		"Consulta, busca y gestiona licitaciones y contratos públicos en España. Descubre oportunidades del sector público en tiempo real con nuestra plataforma. Encuentre licitaciones de obras públicas.",
+	keywords:
+		"licitaciones, licitaciones del estado, contratación pública, contratos sector público, buscador de licitaciones, concesión de servicios, contratos de obras, licitaciones abiertas, licitaciones de obras públicas.",
+}
 
 export default async function BuscarLicitaciones({
 	searchParams,
