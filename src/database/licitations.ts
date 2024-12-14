@@ -2,7 +2,7 @@ import { LicitationModel } from "@/schemas/licitacion.schema"
 import { connectDB } from "."
 import { FilterQuery } from "mongoose"
 import { RootQuerySelector } from "mongoose"
-import { swapAccentsByDots } from "@/utils"
+import { prepareTextForRegex, swapAccentsByDots } from "@/utils"
 import { Licitation } from "@/types"
 
 await connectDB()
@@ -44,7 +44,7 @@ export async function getLastLicitations(
 		if (key === "Lugar de Ejecución") {
 			searchAggregates.push({
 				"Lugar de Ejecución": {
-					$regex: new RegExp(swapAccentsByDots(value)),
+					$regex: new RegExp(prepareTextForRegex(value)),
 					$options: "i",
 				},
 			})
@@ -55,6 +55,17 @@ export async function getLastLicitations(
 		if (key === "Órgano de Contratación") {
 			searchAggregates.push({
 				"Órgano de Contratación": {
+					$regex: new RegExp(prepareTextForRegex(value)),
+					$options: "i",
+				},
+			})
+
+			return
+		}
+
+		if (key === "Expediente") {
+			searchAggregates.push({
+				Expediente: {
 					$regex: new RegExp(swapAccentsByDots(value)),
 					$options: "i",
 				},

@@ -10,6 +10,7 @@ import {
 	IconBuildingEstate,
 	IconFilterOff,
 	IconFilterFilled,
+	IconFileDescription,
 } from "@tabler/icons-react"
 import { Licitation } from "@/types"
 import { LicitationCard } from "./LicitationCard"
@@ -70,7 +71,11 @@ export function LicitationsSearch({
 			window.dispatchEvent(new Event("storage"))
 		}
 
-		resultsRef.current?.scrollIntoView({ behavior: "smooth" })
+		const resultsY = resultsRef.current?.getBoundingClientRect().y
+
+		if (resultsY) {
+			window.scroll({ top: resultsY - 75, left: 0, behavior: "smooth" })
+		}
 	}, [searchParams])
 
 	const getPrevPage = () => {
@@ -160,20 +165,6 @@ export function LicitationsSearch({
 			<div className="flex flex-col gap-4">
 				<h1 className="text-3xl font-bold">Últimas actualizaciones</h1>
 
-				{[...searchParams.entries()].map(([key, value]) => {
-					if (key === "page") return null
-
-					return (
-						<h3
-							key={key}
-							className="text-sm leading-none font-semibold italic text-gray-700"
-						>
-							{key.replace(/:$/, "")}:{" "}
-							<span className="">{value.split(",").join(", ")}</span>
-						</h3>
-					)
-				})}
-
 				<details className="bg-white" open>
 					<summary className="flex cursor-pointer justify-between items-center gap-4 p-4">
 						<div className="flex gap-2 items-center">
@@ -224,6 +215,22 @@ export function LicitationsSearch({
 									Escribe los conceptos separados por comas
 								</span>
 							</div>
+						</label>
+
+						<label className="form-control w-full">
+							<div className="label">
+								<span className="flex gap-2 label-text text-base font-bold text-gray-800">
+									<IconFileDescription />
+									Buscar por expediente
+								</span>
+							</div>
+							<input
+								type="text"
+								placeholder="Exp 123/2024"
+								className="input input-bordered w-full dark:text-gray-100"
+								onInput={(e) => handleInput(e, { field: "Expediente" })}
+								value={getValue({ field: "Expediente" })}
+							/>
 						</label>
 
 						<label className="form-control w-full">
@@ -426,7 +433,23 @@ export function LicitationsSearch({
 				</details>
 			</div>
 
-			<LastSearches />
+			{[...searchParams.entries()].some(([key]) => key !== "page") && (
+				<h4>Filtros aplicados:</h4>
+			)}
+
+			{[...searchParams.entries()].map(([key, value]) => {
+				if (key === "page") return null
+
+				return (
+					<h3
+						key={key}
+						className="text-sm leading-none font-semibold italic text-gray-700"
+					>
+						{key.replace(/:$/, "")}:{" "}
+						<span className="">{value.split(",").join(", ")}</span>
+					</h3>
+				)
+			})}
 
 			<div className="flex flex-col w-full gap-4" ref={resultsRef}>
 				{initialLicitations.length === 0 && (
@@ -459,6 +482,8 @@ export function LicitationsSearch({
 					Siguiente página
 				</Link>
 			</div>
+
+			<LastSearches />
 		</div>
 	)
 }

@@ -7,3 +7,11 @@ export function swapAccentsByDots(text: string) {
 		)
 		.normalize()
 }
+
+export function escapeCharacters(text: string) {
+	return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&")
+}
+
+export function prepareTextForRegex(text: string) {
+	return swapAccentsByDots(escapeCharacters(text))
+}

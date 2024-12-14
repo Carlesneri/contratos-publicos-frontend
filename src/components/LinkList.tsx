@@ -37,6 +37,10 @@ const quickLinks: { title: string; url: string }[] = [
 		title: "alumbrado público",
 		url: "/licitaciones?Objeto+del+contrato=alumbrado+público",
 	},
+	{
+		title: "tragsa",
+		url: "/licitaciones?Órgano+de+Contratación=tragsa",
+	},
 ]
 
 export function LinkList({

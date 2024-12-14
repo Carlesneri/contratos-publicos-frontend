@@ -44,7 +44,7 @@ export function Header() {
 						aria-current="page"
 					>
 						<IconKeyframeFilled />
-						Home
+						Inicio
 					</Link>
 				</div>
 
