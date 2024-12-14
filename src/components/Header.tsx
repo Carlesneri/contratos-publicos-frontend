@@ -51,7 +51,7 @@ export function Header() {
 				<div className="flex gap-2 items-center">
 					<div className="dropdown dropdown-hover relative">
 						<div tabIndex={0} role="button" className="m-2">
-							<div className="flex gap-1 items-center text-gray-200">
+							<div className="flex gap-1 items-center text-yellow-500">
 								<IconStar />({savedLicitations.length})
 							</div>
 						</div>
