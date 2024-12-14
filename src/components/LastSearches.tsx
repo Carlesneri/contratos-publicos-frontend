@@ -32,7 +32,7 @@ export function LastSearches() {
 				{lastSearches.map((search) => (
 					<li key={search} className="">
 						<Link
-							href={`/licitaciones/?${search}`}
+							href={`/licitaciones/?${search}#resultados`}
 							className="flex bg-yellow-500 border-2 border-transparent hover:border-2 hover:border-yellow-500 bg-opacity-50 transition-colors px-2 w-fit items-center text-sm text-gray-800 max-w-full"
 						>
 							<div className="breadcrumbs max-w-full p-1">

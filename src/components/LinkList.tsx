@@ -55,7 +55,7 @@ export function LinkList({
 					key={index}
 					className="badge badge-success p-4 text-gray-100 font-bold"
 				>
-					<Link href={item.url}>{item.title}</Link>
+					<Link href={`${item.url}#resultados`}>{item.title}</Link>
 				</li>
 			))}
 		</ul>

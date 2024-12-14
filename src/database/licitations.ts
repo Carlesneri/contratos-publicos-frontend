@@ -116,7 +116,7 @@ export async function getSuggestions({
 	limit = 10,
 	skip = 0,
 }: {
-	licitation: Licitation
+	licitation: Partial<Licitation>
 	limit?: number
 	skip?: number
 }) {

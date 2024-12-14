@@ -23,13 +23,13 @@ import {
 import { Licitation } from "@/types"
 import { LicitationCard } from "./LicitationCard"
 import { useSearchParams, useRouter } from "next/navigation"
-import Link from "next/link"
 import {
 	LOCAL_STORAGE_SAVED_SEARCHES,
 	VALID_LICITATION_FIELDS,
 } from "@/CONSTANTS"
 import { Fields } from "@/database/fields"
 import { LastSearches } from "./LastSearches"
+import { Pagination } from "./Pagination"
 
 export function LicitationsSearch({
 	initialLicitations,
@@ -87,7 +87,7 @@ export function LicitationsSearch({
 
 		params.set("page", prevPage.toString())
 
-		return `/licitaciones/?${params.toString()}`
+		return `/licitaciones/?${params.toString()}#resultados`
 	}
 
 	const getNextPage = () => {
@@ -97,7 +97,7 @@ export function LicitationsSearch({
 
 		params.set("page", nextPage.toString())
 
-		return `/licitaciones/?${params.toString()}`
+		return `/licitaciones/?${params.toString()}#resultados`
 	}
 
 	function handleChangeCheckbox(
@@ -528,31 +528,31 @@ export function LicitationsSearch({
 				</details>
 			</div>
 
-			{[...searchParams.entries()].some(([key]) => key !== "page") ? (
-				<h4 className="font-bold">Filtros aplicados:</h4>
-			) : (
-				<h4 className="font-bold">No tienes filtros aplicados</h4>
-			)}
-
-			{[...searchParams.entries()].map(([key, value]) => {
-				if (key === "page") return null
-
-				return (
-					<h3
-						key={key}
-						className="text-sm leading-none font-semibold italic text-gray-700"
-					>
-						{key.replace(/:$/, "")}:{" "}
-						<span className="">{value.split(",").join(", ")}</span>
-					</h3>
-				)
-			})}
-
 			<div
 				id="resultados"
-				className="flex flex-col w-full gap-4 scroll-my-8 scroll-smooth"
+				className="flex flex-col w-full gap-4 scroll-smooth"
 				ref={resultsRef}
 			>
+				{[...searchParams.entries()].some(([key]) => key !== "page") ? (
+					<h4 className="font-bold">Filtros aplicados:</h4>
+				) : (
+					<h4 className="font-bold">No tienes filtros aplicados</h4>
+				)}
+
+				{[...searchParams.entries()].map(([key, value]) => {
+					if (key === "page") return null
+
+					return (
+						<h3
+							key={key}
+							className="text-sm leading-none font-semibold italic text-gray-700"
+						>
+							{key.replace(/:$/, "")}:{" "}
+							<span className="">{value.split(",").join(", ")}</span>
+						</h3>
+					)
+				})}
+
 				{initialLicitations.length === 0 && (
 					<div className="font-bold text-xl my-4 text-center text-gray-800">
 						No se encontraron resultados
@@ -564,25 +564,12 @@ export function LicitationsSearch({
 				))}
 			</div>
 
-			<div className="join grid grid-cols-[1fr_auto_1fr] place-content-center">
-				<Link
-					href={getPrevPage()}
-					className={`join-item btn text-gray-800 ${
-						!page || page === 1 ? "btn-disabled" : "btn-outline"
-					}`}
-				>
-					Anterior página
-				</Link>
-				<div className="self-center px-4 font-bold">{page || "1"}</div>
-				<Link
-					href={getNextPage()}
-					className={`join-item btn text-gray-800 ${
-						isNextPage ? "btn-outline" : "btn-disabled"
-					}`}
-				>
-					Siguiente página
-				</Link>
-			</div>
+			<Pagination
+				isNextPage={isNextPage}
+				page={page}
+				nextPage={getNextPage()}
+				prevPage={getPrevPage()}
+			/>
 
 			<LastSearches />
 		</div>

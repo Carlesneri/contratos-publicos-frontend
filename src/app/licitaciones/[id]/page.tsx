@@ -70,7 +70,7 @@ export default async function Licitacion({
 
 		return {
 			label: `Ver más de ${value}`,
-			href: `/licitaciones?${urlSearchParams.toString()}`,
+			href: `/licitaciones?${urlSearchParams.toString()}#resultados`,
 		}
 	}
 
@@ -192,6 +192,12 @@ export default async function Licitacion({
 							label="Valor estimado del contrato"
 							value={licitation["Valor estimado del contrato:"]}
 						/>
+						{licitation["Importe de Adjudicación"] && (
+							<InfoItem
+								label="Importe de Adjudicación"
+								value={licitation["Importe de Adjudicación"]}
+							/>
+						)}
 					</div>
 				</div>
 
@@ -240,7 +246,7 @@ export default async function Licitacion({
 				</div>
 			</div>
 
-			<Suggestions licitation={licitation} />
+			<Suggestions licitation={{ ...licitation, id }} />
 
 			<LastSearches />
 		</Suspense>
