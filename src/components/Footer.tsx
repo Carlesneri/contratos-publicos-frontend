@@ -52,6 +52,33 @@ export default function Footer() {
 								contrataciones del estado
 							</a>
 						</p>
+						<p className="text-sm">
+							<Link
+								className="hover:text-white"
+								href="/aviso-legal"
+								target="_blank"
+							>
+								Aviso legal
+							</Link>
+						</p>
+						<p className="text-sm">
+							<Link
+								className="hover:text-white"
+								href="/privacidad"
+								target="_blank"
+							>
+								Política de privacidad
+							</Link>
+						</p>
+						<p className="text-sm">
+							<Link
+								className="hover:text-white"
+								href="/cookies"
+								target="_blank"
+							>
+								Política de cookies
+							</Link>
+						</p>
 					</div>
 				</div>
 				<div className="mt-8 pt-8 border-t border-gray-700 text-sm text-center">
