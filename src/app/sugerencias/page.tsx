@@ -1,4 +1,5 @@
 import { LicitationCard } from "@/components/LicitationCard"
+import { LinkList } from "@/components/LinkList"
 import { Loading } from "@/components/Loading"
 import { Pagination } from "@/components/Pagination"
 import { getSuggestions } from "@/database/licitations"
@@ -85,6 +86,8 @@ export default async function Licitacion({
 					prevPage={getPrevPage()}
 				/>
 			</Suspense>
+
+			<LinkList />
 		</>
 	)
 }

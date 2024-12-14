@@ -19,6 +19,7 @@ import { ToolsBar } from "@/components/ToolsBar"
 import { Suggestions } from "@/components/Suggestions"
 import type { Metadata } from "next"
 import { LastSearches } from "@/components/LastSearches"
+import { LinkList } from "@/components/LinkList"
 
 type Props = {
 	params: Promise<{ id: string }>
@@ -249,6 +250,8 @@ export default async function Licitacion({
 			<Suggestions licitation={{ ...licitation, id }} />
 
 			<LastSearches />
+
+			<LinkList />
 		</Suspense>
 	)
 }
