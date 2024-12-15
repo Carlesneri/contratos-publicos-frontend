@@ -61,7 +61,7 @@ export default function Cookies() {
 					de cookies que se utiliza, sus principales características, periodo de
 					expiración, etc. en el siguiente(s) enlace(s): Google Analytics:
 					https://business.safety.google/adscookies/?sjid=2749460854944076577-EU
-					Google Ads:
+					Google Adsense:
 					https://business.safety.google/adscookies/?sjid=2749460854944076577-EU
 					La(s) entidad(es) encargada(s) del suministro de cookies podrá(n)
 					ceder esta información a terceros, siempre y cuando lo exija la ley o

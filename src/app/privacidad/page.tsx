@@ -125,7 +125,7 @@ export default function Privacidad() {
 				<p>
 					Los datos personales del Usuario serán compartidos con los siguientes
 					destinatarios o categorías de destinatarios: google analytics, google
-					ads.
+					adsense.
 				</p>
 				<p>
 					En caso de que el Responsable del tratamiento tenga la intención de
