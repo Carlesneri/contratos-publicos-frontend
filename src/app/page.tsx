@@ -27,7 +27,7 @@ export default async function LicitacionesPage() {
 
 			<Link
 				href="/licitaciones#formulario"
-				className="btn btn-info text-base gap-4 rounded-none w-full flex py-4 items-center h-auto"
+				className="btn text-info btn-outline text-base gap-4 w-full md:w-fit flex py-4 items-center h-auto"
 			>
 				<IconSearch className="w-fill" />
 				empieza a buscar
