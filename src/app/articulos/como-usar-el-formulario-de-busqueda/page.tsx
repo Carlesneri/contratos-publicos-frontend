@@ -37,7 +37,7 @@ export default function ComoUsarElFormulariDeBusqueda() {
 						<Link
 							href="/licitaciones#formulario"
 							target="_blank"
-							className="underline"
+							className="underline break-all"
 						>
 							https://www.contratopublico.es/licitaciones#formulario
 						</Link>

@@ -49,7 +49,7 @@ export function Header() {
 				</div>
 
 				<div className="flex gap-2 items-center">
-					<div className="dropdown dropdown-hover relative">
+					<div className="hidden sm:block dropdown dropdown-hover relative">
 						<div tabIndex={0} role="button" className="m-2">
 							<Link
 								href={"/articulos"}
@@ -121,7 +121,7 @@ export function Header() {
 						aria-current="page"
 					>
 						<IconSearch />
-						Buscar
+						<span className="hidden sm:inline">Buscar</span>
 					</Link>
 				</div>
 			</nav>
