@@ -1,3 +1,5 @@
+import { IconShare, IconStar } from "@tabler/icons-react"
+
 export function HomeContent() {
 	return (
 		<>
@@ -88,11 +90,18 @@ export function HomeContent() {
 			</section>
 
 			<section>
-				<h2>Mantente al día con nuestras alertas</h2>
+				<h2>Guarda tus licitaciones para más tarde</h2>
 				<p>
-					Activa las notificaciones y no te pierdas ninguna oportunidad. Nuestro
-					sistema de <strong>alerta de licitaciones</strong> te informa al
-					instante sobre licitaciones relevantes para tu sector.
+					En el caso de que quieras consultar posteriormente una concreta
+					licitación puedes guardarla clicando en el icono de la estrella{" "}
+					<IconStar className="inline px-1 pb-1 w-8" /> bajo el título del
+					detalle de una licitación. Podrás acceder a ella desde el desplegable
+					en el encabezado.
+				</p>
+				<p>
+					Del mismo modo puedes compartir una licitación haciendo click en el
+					icono de compartir
+					<IconShare className="inline px-1 pb-1 w-8" />.
 				</p>
 			</section>
 

@@ -57,3 +57,30 @@ export const DEFAULT_LIMIT = 10
 
 export const LOCAL_STORAGE_SAVED_LICITATIONS = "savedLicitations"
 export const LOCAL_STORAGE_SAVED_SEARCHES = "savedSearches"
+
+export const ARTICLES = [
+	{
+		title: "Cómo participar en licitaciones",
+		slug: "como-participar-en-licitaciones",
+		description:
+			"Artículo que explica qué es un contrato público y cómo se puede participar en las licitaciones presentadas en España.",
+	},
+	{
+		title: "Cómo utilizar el formulario de búsqueda",
+		slug: "como-usar-el-formulario-de-busqueda",
+		description:
+			"Guía detallada sobre el funcionamiento del buscador de contratos públicos.",
+	},
+	{
+		title: "Requisitos para Optar a un Contrato Público en España",
+		slug: "requisitos-para-optar-a-un-contrato-publico",
+		description:
+			"Guía detallada sobre los requisitos para optar a licitaciones públicas en España.",
+	},
+	{
+		title: "Preguntas frecuentes sobre la contratación en el sector público",
+		slug: "preguntas-frecuentes",
+		description:
+			"Respuestas a las preguntas más frecuentes sobre la contratación en el sector público en España.",
+	},
+]

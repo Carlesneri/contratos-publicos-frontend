@@ -27,13 +27,13 @@ export function LastSearches() {
 
 	return lastSearches.length > 0 ? (
 		<div className="w-full">
-			<h5 className="text-xl">Tus últimas búsquedas:</h5>
+			<h5 className="text-xl pb-2">Tus últimas búsquedas:</h5>
 			<ul className="flex flex-col gap-1">
 				{lastSearches.map((search) => (
 					<li key={search} className="">
 						<Link
 							href={`/licitaciones/?${search}#resultados`}
-							className="flex bg-yellow-500 border-2 border-transparent hover:border-2 hover:border-yellow-500 bg-opacity-50 transition-colors px-2 py-1 w-fit items-center text-sm text-gray-800 max-w-full"
+							className="flex bg-yellow-500/50 border-2 border-transparent hover:border-2 hover:border-yellow-500 transition-colors px-2 py-1 w-fit items-center text-sm text-gray-800 max-w-full"
 						>
 							<div className="breadcrumbs max-w-full p-1">
 								<ul>

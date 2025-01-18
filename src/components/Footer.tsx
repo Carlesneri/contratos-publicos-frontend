@@ -21,6 +21,11 @@ export default function Footer() {
 								</Link>
 							</li>
 							<li className="mb-1">
+								<Link href="/articulos" className="hover:text-white">
+									Artículos
+								</Link>
+							</li>
+							<li className="mb-1">
 								<Link href="/licitaciones" className="hover:text-white">
 									Últimas actualizaciones
 								</Link>

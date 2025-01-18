@@ -1,6 +1,6 @@
 "use client"
 
-import { LOCAL_STORAGE_SAVED_LICITATIONS } from "@/CONSTANTS"
+import { ARTICLES, LOCAL_STORAGE_SAVED_LICITATIONS } from "@/CONSTANTS"
 import { LocalStorageLicitation } from "@/types"
 import {
 	IconKeyframeFilled,
@@ -51,6 +51,38 @@ export function Header() {
 				<div className="flex gap-2 items-center">
 					<div className="dropdown dropdown-hover relative">
 						<div tabIndex={0} role="button" className="m-2">
+							<Link
+								href={"/articulos"}
+								className="flex items-center gap-1 text-white font-bold"
+							>
+								Artículos
+							</Link>
+						</div>
+						<ul
+							tabIndex={0}
+							className="dropdown-content menu bg-white z-[1] w-64 shadow p-0 absolute right-0 translate-x-1/2"
+						>
+							{ARTICLES.map((article) => {
+								return (
+									<li key={article.slug} className="flex">
+										<Link
+											href={`/articulos/${article.slug}`}
+											className="font-bold text-gray-600 hover:text-gray-800 transition-colors hover:bg-gray-100 rounded-none"
+											title={article.title}
+										>
+											<span className="overflow-hidden line-clamp-2">
+												<IconKeyframeFilled className="inline w-3 pb-1 mr-1" />
+												{article.title}
+											</span>
+										</Link>
+									</li>
+								)
+							})}
+						</ul>
+					</div>
+
+					<div className="dropdown dropdown-hover relative">
+						<div tabIndex={0} role="button" className="m-2">
 							<div className="flex gap-1 items-center text-yellow-500">
 								<IconStar />({savedLicitations.length})
 							</div>
@@ -60,7 +92,7 @@ export function Header() {
 							className="dropdown-content menu bg-white z-[1] w-64 shadow p-0 absolute right-0 translate-x-1/2"
 						>
 							{savedLicitations.length === 0 && (
-								<li className="text-center text-gray-400 font-bold">
+								<li className="text-center text-gray-400 font-bold p-2">
 									No hay licitaciones guardadas
 								</li>
 							)}

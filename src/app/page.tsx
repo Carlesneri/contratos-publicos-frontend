@@ -5,6 +5,7 @@ import Link from "next/link"
 import { IconArrowRight, IconSearch } from "@tabler/icons-react"
 import { LinkList } from "@/components/LinkList"
 import { LastSearches } from "@/components/LastSearches"
+import { ArticleList } from "@/components/ArticleList"
 
 export const dynamic = "force-dynamic"
 
@@ -29,11 +30,14 @@ export default async function LicitacionesPage() {
 				href="/licitaciones#formulario"
 				className="btn text-info btn-outline text-base gap-4 w-full md:w-fit flex py-4 items-center h-auto"
 			>
-				<IconSearch className="w-fill" />
+				<IconSearch />
 				empieza a buscar
 			</Link>
 
 			<LastSearches />
+
+			<ArticleList />
+
 			<div className="flex gap-x-4 items-center flex-wrap">
 				<h3 className="text-2xl font-bold">Últimas publicadas</h3>
 				<Link
