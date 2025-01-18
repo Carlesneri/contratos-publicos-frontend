@@ -42,7 +42,9 @@ export function LastSearches() {
 											return (
 												<li key={key} className="flex gap-1 text-gray-600">
 													<span className="text-gray-800">{key}</span>
-													<span className="font-bold">{value}</span>
+													<span className="font-bold overflow-hidden">
+														{value}
+													</span>
 												</li>
 											)
 										}

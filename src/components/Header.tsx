@@ -3,6 +3,7 @@
 import { ARTICLES, LOCAL_STORAGE_SAVED_LICITATIONS } from "@/CONSTANTS"
 import { LocalStorageLicitation } from "@/types"
 import {
+	IconArticle,
 	IconKeyframeFilled,
 	IconSearch,
 	IconStar,
@@ -49,18 +50,19 @@ export function Header() {
 				</div>
 
 				<div className="flex gap-2 items-center">
-					<div className="hidden sm:block dropdown dropdown-hover relative">
+					<div className="dropdown sm:dropdown-hover relative">
 						<div tabIndex={0} role="button" className="m-2">
 							<Link
 								href={"/articulos"}
 								className="flex items-center gap-1 text-white font-bold"
 							>
-								Artículos
+								<span className="hidden sm:inline">Artículos</span>
+								<IconArticle />
 							</Link>
 						</div>
 						<ul
 							tabIndex={0}
-							className="dropdown-content menu bg-white z-[1] w-64 shadow p-0 absolute right-0 translate-x-1/2"
+							className="hidden sm:flex dropdown-content menu bg-white z-[1] w-64 shadow p-0 absolute right-0 translate-x-1/2"
 						>
 							{ARTICLES.map((article) => {
 								return (
