@@ -83,7 +83,7 @@ export function Header() {
 						</ul>
 					</div>
 
-					<div className="dropdown dropdown-hover relative">
+					<div className="dropdown dropdown-hover relative dropdown-bottom dropdown-left">
 						<div tabIndex={0} role="button" className="m-2">
 							<div className="flex gap-1 items-center text-yellow-500">
 								<IconStar />({savedLicitations.length})
