@@ -87,29 +87,29 @@ export default async function Licitacion({
 				<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 					<div className="space-y-4">
 						<InfoItem
-							icon={<IconFileDescription className="w-5 h-5" />}
+							icon={<IconFileDescription className="size-5" />}
 							label="Expediente"
 							value={licitation.Expediente}
 						/>
 						{licitation["Fecha de Actualización del Expte."] && (
 							<InfoItem
-								icon={<IconCalendar className="w-5 h-5" />}
+								icon={<IconCalendar className="size-5" />}
 								label="Expediente"
 								value={licitation["Fecha de Actualización del Expte."]}
 							/>
 						)}
 						<InfoItem
-							icon={<IconCalendar className="w-5 h-5" />}
+							icon={<IconCalendar className="size-5" />}
 							label="Fecha fin de presentación de oferta"
 							value={licitation["Fecha fin de presentación de oferta"]}
 						/>
 						<InfoItem
-							icon={<IconCalendar className="w-5 h-5" />}
+							icon={<IconCalendar className="size-5" />}
 							label="Fecha fin de presentación de solicitud"
 							value={licitation["Fecha fin de presentación de solicitud"]}
 						/>
 						<InfoItem
-							icon={<IconMapPin className="w-5 h-5" />}
+							icon={<IconMapPin className="size-5" />}
 							label="Lugar de Ejecución"
 							value={licitation["Lugar de Ejecución"]}
 							moreLink={getMoreLink({
@@ -118,7 +118,7 @@ export default async function Licitacion({
 							})}
 						/>
 						<InfoItem
-							icon={<IconCurrencyEuro className="w-5 h-5" />}
+							icon={<IconCurrencyEuro className="size-5" />}
 							label="Presupuesto base"
 							value={
 								licitation["Presupuesto base de licitación sin impuestos"] ||
@@ -129,12 +129,12 @@ export default async function Licitacion({
 
 					<div className="space-y-4">
 						<InfoItem
-							icon={<IconProgressCheck className="w-5 h-5" />}
+							icon={<IconProgressCheck className="size-5" />}
 							label="Estado"
 							value={licitation["Estado de la Licitación"]}
 						/>
 						<InfoItem
-							icon={<IconBriefcase className="w-5 h-5" />}
+							icon={<IconBriefcase className="size-5" />}
 							label="Tipo de Contrato"
 							value={licitation["Tipo de Contrato:"]}
 							moreLink={getMoreLink({
@@ -143,12 +143,12 @@ export default async function Licitacion({
 							})}
 						/>
 						<InfoItem
-							icon={<IconTimelineEvent className="w-5 h-5" />}
+							icon={<IconTimelineEvent className="size-5" />}
 							label="Procedimiento"
 							value={licitation["Procedimiento de contratación"]}
 						/>
 						<InfoItem
-							icon={<IconTransferIn className="w-5 h-5" />}
+							icon={<IconTransferIn className="size-5" />}
 							label="Órgano de Contratación"
 							value={licitation["Órgano de Contratación"]}
 							moreLink={getMoreLink({

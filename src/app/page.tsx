@@ -5,7 +5,8 @@ import Link from "next/link"
 import { IconArrowRight, IconSearch } from "@tabler/icons-react"
 import { LinkList } from "@/components/LinkList"
 import { LastSearches } from "@/components/LastSearches"
-import { ArticleList } from "@/components/ArticleList"
+import { Suspense } from "react"
+import { Loading } from "@/components/Loading"
 
 export const dynamic = "force-dynamic"
 
@@ -36,8 +37,6 @@ export default async function LicitacionesPage() {
 
 			<LastSearches />
 
-			<ArticleList />
-
 			<div className="flex gap-x-4 items-center flex-wrap">
 				<h3 className="text-2xl font-bold">Últimas publicadas</h3>
 				<Link
@@ -48,18 +47,22 @@ export default async function LicitacionesPage() {
 					<IconArrowRight />
 				</Link>
 			</div>
-			<div className="flex flex-col w-full gap-4 items-center">
-				{licitations.result.map((licitation) => (
-					<LicitationCard key={licitation.id} licitation={licitation} />
-				))}
-				<Link
-					href={`/licitaciones?${verMasSearchParams.toString()}`}
-					className="btn btn-ghost w-fit"
-				>
-					Ver más
-					<IconArrowRight />
-				</Link>
-			</div>
+
+			<Suspense fallback={<Loading />}>
+				<div className="flex flex-col w-full gap-4 items-center">
+					{licitations.result.map((licitation) => (
+						<LicitationCard key={licitation.id} licitation={licitation} />
+					))}
+					<Link
+						href={`/licitaciones?${verMasSearchParams.toString()}`}
+						className="btn btn-ghost w-fit"
+					>
+						Ver más
+						<IconArrowRight />
+					</Link>
+				</div>
+			</Suspense>
+
 			<LinkList />
 		</>
 	)

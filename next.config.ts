@@ -1,7 +1,14 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from "next"
 
 const nextConfig: NextConfig = {
-  /* config options here */
-};
+	rewrites: async () => {
+		return [
+			{
+				source: "/articulos/:article",
+				destination: "/articulos/grupo-articulos/:article",
+			},
+		]
+	},
+}
 
-export default nextConfig;
+export default nextConfig

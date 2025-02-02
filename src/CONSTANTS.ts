@@ -78,6 +78,18 @@ export const ARTICLES = [
 			"Guía detallada sobre los requisitos para optar a licitaciones públicas en España.",
 	},
 	{
+		title: "Guía paso a paso para licitar en España",
+		slug: "guia-paso-a-paso-para-licitar-en-espana",
+		description:
+			"Guía paso a paso para licitar en España, desde el análisis inicial hasta la presentación de la solicitud final.",
+	},
+	{
+		title: "Consejos para tener éxito en las solicitudes a contratos públicos",
+		slug: "consejos-para-tener-exito",
+		description:
+			"Consejos y recomendaciones para tener éxito en las solicitudes a contratos públicos en España.",
+	},
+	{
 		title: "Preguntas frecuentes sobre la contratación en el sector público",
 		slug: "preguntas-frecuentes",
 		description:

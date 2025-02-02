@@ -1,4 +1,5 @@
 import { IconShare, IconStar } from "@tabler/icons-react"
+import { ArticleList } from "./ArticleList"
 
 export function HomeContent() {
 	return (
@@ -30,6 +31,8 @@ export function HomeContent() {
 					</li>
 				</ul>
 			</section>
+
+			<ArticleList isHome />
 
 			<section>
 				<h2>Ventajas de nuestro buscador de licitaciones</h2>
