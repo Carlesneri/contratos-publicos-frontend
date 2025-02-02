@@ -2,12 +2,14 @@
 
 import { ARTICLES, LOCAL_STORAGE_SAVED_LICITATIONS } from "@/CONSTANTS"
 import { LocalStorageLicitation } from "@/types"
+import { removeLicitationStorage } from "@/utils"
 import {
 	IconArticle,
 	IconKeyframeFilled,
 	IconSearch,
 	IconStar,
 	IconStarFilled,
+	IconTrash,
 } from "@tabler/icons-react"
 import Link from "next/link"
 import { useEffect, useState } from "react"
@@ -92,19 +94,22 @@ export function Header() {
 						</div>
 						<ul
 							tabIndex={0}
-							className="dropdown-content menu bg-white z-[1] w-64 shadow p-0 absolute right-0 translate-x-1/2"
+							className="dropdown-content menu bg-white z-[1] w-72 shadow p-0 absolute right-0 translate-x-1/2"
 						>
 							{savedLicitations.length === 0 && (
-								<li className="text-center text-gray-400 font-bold p-2">
+								<li className="text-center text-gray-400 font-bold p-4">
 									No hay licitaciones guardadas
 								</li>
 							)}
 							{savedLicitations.map((licitation) => {
 								return (
-									<li key={licitation.id} className="flex">
+									<li
+										key={licitation.id}
+										className="flex gap-2 flex-row [flex-wrap:nowrap] items-center"
+									>
 										<Link
 											href={`/licitaciones/${licitation.id}`}
-											className="font-bold text-gray-600 hover:text-success transition-colors hover:bg-gray-100 rounded-none"
+											className="font-bold text-gray-600 hover:text-success transition-colors hover:bg-white rounded-none"
 											title={licitation.title}
 										>
 											<span className="overflow-hidden line-clamp-2">
@@ -112,6 +117,12 @@ export function Header() {
 												{licitation.title}
 											</span>
 										</Link>
+										<button
+											className="btn btn-link text-error hover:text-warning transition-colors flex-1"
+											onClick={() => removeLicitationStorage(licitation.id)}
+										>
+											<IconTrash className="inline" />
+										</button>
 									</li>
 								)
 							})}

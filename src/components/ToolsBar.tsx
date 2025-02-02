@@ -2,8 +2,13 @@
 
 import { LOCAL_STORAGE_SAVED_LICITATIONS } from "@/CONSTANTS"
 import { LocalStorageLicitation, ToastType } from "@/types"
+import {
+	addLicitationStorage,
+	getStorageLicitations,
+	removeLicitationStorage,
+} from "@/utils"
 import { IconShare, IconStar, IconStarFilled } from "@tabler/icons-react"
-import { useEffect, useRef, useState } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 
 export function ToolsBar({
 	licitationId,
@@ -17,7 +22,7 @@ export function ToolsBar({
 		null
 	)
 
-	useEffect(() => {
+	const setFavState = useCallback(() => {
 		const savedLicitations: LocalStorageLicitation[] = JSON.parse(
 			localStorage.getItem(LOCAL_STORAGE_SAVED_LICITATIONS) || "[]"
 		)
@@ -28,6 +33,18 @@ export function ToolsBar({
 			})
 		)
 	}, [licitationId])
+
+	useEffect(() => {
+		setFavState()
+	}, [setFavState])
+
+	useEffect(() => {
+		window.addEventListener("storage", setFavState)
+
+		return () => {
+			window.removeEventListener("storage", setFavState)
+		}
+	}, [setFavState])
 
 	const timeoutRef = useRef<number | NodeJS.Timeout | null>(null)
 
@@ -44,38 +61,17 @@ export function ToolsBar({
 	}, [toast])
 
 	function handleClickToggleLicitation() {
-		const savedLicitations: LocalStorageLicitation[] = JSON.parse(
-			localStorage.getItem(LOCAL_STORAGE_SAVED_LICITATIONS) || "[]"
-		)
+		const savedLicitations = getStorageLicitations()
 
 		if (savedLicitations.some((licitation) => licitation.id === licitationId)) {
-			const newSavedLicitations = savedLicitations.filter(
-				({ id }) => id !== licitationId
-			)
-
-			localStorage.setItem(
-				LOCAL_STORAGE_SAVED_LICITATIONS,
-				JSON.stringify(newSavedLicitations)
-			)
+			removeLicitationStorage(licitationId)
 			setSaved(false)
-
 			setToast({ text: "Licitación retirada", type: "success" })
 		} else {
-			const newSavedLicitations: LocalStorageLicitation[] = [
-				...savedLicitations,
-				{ id: licitationId, title },
-			]
-
-			localStorage.setItem(
-				LOCAL_STORAGE_SAVED_LICITATIONS,
-				JSON.stringify(newSavedLicitations)
-			)
-
+			addLicitationStorage({ licitationId, title })
 			setSaved(true)
 			setToast({ text: "Licitación guardada", type: "success" })
 		}
-
-		window.dispatchEvent(new Event("storage"))
 	}
 
 	function handleClickShareLicitation() {
