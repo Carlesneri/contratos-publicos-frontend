@@ -85,7 +85,8 @@ export function Header() {
 
 					<div className="dropdown dropdown-hover relative dropdown-bottom dropdown-left">
 						<div tabIndex={0} role="button" className="m-2">
-							<div className="flex gap-1 items-center text-yellow-500">
+							<div className="font-bold flex gap-1 items-center text-yellow-500">
+								<span className="hidden sm:inline">Favoritas</span>
 								<IconStar />({savedLicitations.length})
 							</div>
 						</div>
@@ -116,16 +117,16 @@ export function Header() {
 							})}
 						</ul>
 					</div>
-
-					<Link
-						href="/licitaciones"
-						className="flex gap-2 items-center btn btn-outline btn-info"
-						aria-current="page"
-					>
-						<IconSearch />
-						<span className="hidden sm:inline">Buscar</span>
-					</Link>
 				</div>
+
+				<Link
+					href="/licitaciones"
+					className="flex gap-2 items-center btn btn-outline btn-info"
+					aria-current="page"
+				>
+					<IconSearch />
+					<span className="hidden sm:inline">Buscar</span>
+				</Link>
 			</nav>
 		</header>
 	)

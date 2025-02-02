@@ -72,7 +72,7 @@ export const ARTICLES = [
 			"Guía detallada sobre el funcionamiento del buscador de contratos públicos.",
 	},
 	{
-		title: "Requisitos para Optar a un Contrato Público en España",
+		title: "Requisitos para optar a un contrato público en España",
 		slug: "requisitos-para-optar-a-un-contrato-publico",
 		description:
 			"Guía detallada sobre los requisitos para optar a licitaciones públicas en España.",

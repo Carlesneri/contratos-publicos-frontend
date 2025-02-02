@@ -12,7 +12,7 @@ export default function RequisitosParaOptarAContratoPublico() {
 	return (
 		<>
 			<h1>
-				Requisitos para Optar a una Licitación o Contrato Público en España
+				Requisitos para optar a una licitación o contrato público en España
 			</h1>
 
 			<section>
